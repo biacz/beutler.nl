@@ -5,6 +5,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://www.beutler.nl',
   trailingSlash: 'always',
+  // Astro 7 default 'jsx' drops line breaks between text and inline tags ("theLink"); keep spaces.
+  compressHTML: true,
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {
