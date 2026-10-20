@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" width="760" height="350" role="img" aria-labelledby="t d">
+  <title id="t">Battery drain per attempt</title>
+  <desc id="d">Battery drain in percent per hour for five attempts. Own sleep with echo mem: 3.0. Plus frontlight off: 3.0. Plus Wi-Fi driver unloaded: 2.8. All three woke on time. Letting powerd sleep alone: 0.1, but it missed every refresh. Version 6, powerd sleeps and the wake is requested at readyToSuspend: about 0.18, and it wakes on time.</desc>
+  <style>
+    .bg { fill: #ffffff; stroke: #e5e5e5; }
+    .h { font: 700 15px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .sub { font: 400 12.5px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .lab { font: 500 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .lab2 { font: 400 11.5px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .val { font: 700 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .col { font: 600 11px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; letter-spacing: .06em; }
+    .bad { fill: #a62c21; }
+    .gray { fill: #b4b6bb; }
+    .good { fill: #1f4e8c; }
+    .grid { stroke: #ececea; }
+    .axis { stroke: #c9cacd; }
+    .tick { font: 400 11px Inter, 'Segoe UI', system-ui, sans-serif; fill: #8a8d94; }
+    .ok { font: 700 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #237032; }
+    .no { font: 700 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #a62c21; }
+    .hl { fill: #e8eef7; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1c1d21; stroke: #2f3137; }
+      .h, .lab, .val { fill: #e7e7e4; }
+      .sub, .lab2, .col { fill: #a3a6ad; }
+      .bad { fill: #e8705f; }
+      .gray { fill: #5d6068; }
+      .good { fill: #8db4ec; }
+      .grid { stroke: #2a2c31; }
+      .axis { stroke: #45474e; }
+      .tick { fill: #7d8088; }
+      .ok { fill: #69db7c; }
+      .no { fill: #e8705f; }
+      .hl { fill: #1f2a3a; }
+    }
+  </style>
+
+  <rect class="bg" x="0.5" y="0.5" width="759" height="349" rx="12"/>
+  <text class="h" x="24" y="36">Battery drain per attempt</text>
+  <text class="sub" x="24" y="56">% of the battery per hour. A Kindle in proper sleep loses about 1 % per day.</text>
+
+  <!-- column headers -->
+  <text class="col" x="24" y="92">ATTEMPT</text>
+  <text class="col" x="270" y="92">DRAIN (% PER HOUR)</text>
+  <text class="col" x="736" y="92" text-anchor="end">WAKES ON TIME?</text>
+
+  <!-- grid: x0=270, 1 %/h = 130 px -->
+  <line class="grid" x1="270" y1="102" x2="270" y2="306"/>
+  <line class="grid" x1="400" y1="102" x2="400" y2="306"/>
+  <line class="grid" x1="530" y1="102" x2="530" y2="306"/>
+  <line class="grid" x1="660" y1="102" x2="660" y2="306"/>
+  <text class="tick" x="270" y="322" text-anchor="middle">0</text>
+  <text class="tick" x="400" y="322" text-anchor="middle">1</text>
+  <text class="tick" x="530" y="322" text-anchor="middle">2</text>
+  <text class="tick" x="660" y="322" text-anchor="middle">3</text>
+
+  <!-- row 1 -->
+  <text class="lab" x="24" y="122">Own sleep (echo mem)</text>
+  <text class="lab2" x="24" y="138">first version</text>
+  <rect class="bad" x="270" y="112" width="390" height="22" rx="4"/>
+  <text class="val" x="652" y="128" text-anchor="end" fill="#fff" style="fill:#fff">3.0</text>
+  <text class="ok" x="736" y="128" text-anchor="end">✓</text>
+
+  <!-- row 2 -->
+  <text class="lab" x="24" y="162">+ frontlight off</text>
+  <text class="lab2" x="24" y="178">theory 1</text>
+  <rect class="bad" x="270" y="152" width="390" height="22" rx="4"/>
+  <text class="val" x="652" y="168" text-anchor="end" style="fill:#fff">3.0</text>
+  <text class="ok" x="736" y="168" text-anchor="end">✓</text>
+
+  <!-- row 3 -->
+  <text class="lab" x="24" y="202">+ Wi-Fi driver unloaded</text>
+  <text class="lab2" x="24" y="218">theory 2</text>
+  <rect class="bad" x="270" y="192" width="364" height="22" rx="4"/>
+  <text class="val" x="626" y="208" text-anchor="end" style="fill:#fff">2.8</text>
+  <text class="ok" x="736" y="208" text-anchor="end">✓</text>
+
+  <!-- row 4 -->
+  <text class="lab" x="24" y="242">Let powerd sleep alone</text>
+  <text class="lab2" x="24" y="258">deep sleep, no wake-up</text>
+  <rect class="gray" x="270" y="232" width="12" height="22" rx="3"/>
+  <text class="val" x="290" y="248">0.1</text>
+  <text class="no" x="736" y="248" text-anchor="end">✗ missed every refresh</text>
+
+  <!-- row 5 (final) -->
+  <rect class="hl" x="16" y="266" width="728" height="42" rx="8"/>
+  <text class="lab" x="24" y="284" style="font-weight:700">v6 (final)</text>
+  <text class="lab2" x="24" y="300">powerd sleeps, wake set at readyToSuspend</text>
+  <rect class="good" x="270" y="276" width="24" height="22" rx="3"/>
+  <text class="val" x="302" y="292">~0.18</text>
+  <text class="ok" x="736" y="292" text-anchor="end">✓ about 3 weeks per charge</text>
+</svg>

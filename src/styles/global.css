@@ -233,6 +233,12 @@ a.tag:hover {
   border-radius: var(--radius);
   border: 1px solid var(--border);
 }
+/* Diagrams (SVG) bring their own frame and colours for light/dark. */
+.prose img[src*='svg'] {
+  border: 0;
+  border-radius: 0;
+  width: 100%;
+}
 .prose hr {
   border: 0;
   border-top: 1px solid var(--border);

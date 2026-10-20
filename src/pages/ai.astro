@@ -9,6 +9,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 const rendered = await Promise.all(projects.map(async (p) => ({ p, Content: (await render(p)).Content })));
 
 const posts = await getPosts();
+const postIds = new Set(posts.map((p) => p.id));
 const counts = Object.fromEntries(
   (Object.keys(AUTHORSHIP) as (keyof typeof AUTHORSHIP)[]).map((k) => [k, posts.filter((p) => p.data.authorship === k).length]),
 );
@@ -111,7 +112,7 @@ const monthYear = new Intl.DateTimeFormat(SITE.locale, { month: 'long', year: 'n
                     <a href={p.data.repo}>Source</a>
                   </>
                 )}
-                {p.data.post && (
+                {p.data.post && postIds.has(p.data.post) && (
                   <>
                     {' · '}
                     <a href={`/blog/${p.data.post}/`}>Write-up</a>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" height="330" role="img" aria-labelledby="t d">
+  <title id="t">How the calendar gets onto the wall</title>
+  <desc id="d">Home Assistant provides calendars and the weather forecast over its REST API. Twice a day the Kindle fetches them with curl, formats them with jq and draws them with FBInk on the e-ink screen. If Home Assistant is down, the last good calendar stays on the screen.</desc>
+  <style>
+    .bg { fill: #ffffff; stroke: #e5e5e5; }
+    .box { fill: #fafaf9; stroke: #d9d9d6; }
+    .kbox { fill: #ffffff; stroke: #1f4e8c; }
+    .chip { fill: #e8eef7; stroke: #1f4e8c; }
+    .h { font: 700 15px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .b { font: 600 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .s { font: 400 12px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .m { font: 600 12.5px 'JetBrains Mono', Consolas, monospace; fill: #1f4e8c; }
+    .arrow { stroke: #3d3f45; stroke-width: 2; fill: none; }
+    .head { fill: #3d3f45; }
+    .frame { fill: #3d3f45; }
+    .paper { fill: #f3f2ee; }
+    .ink { fill: #3d3f45; }
+    .ink2 { fill: #9a9ca2; }
+    .note { fill: #fbebeb; stroke: #a62c21; stroke-dasharray: 5 4; }
+    .nt { font: 500 12.5px Inter, 'Segoe UI', system-ui, sans-serif; fill: #a62c21; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1c1d21; stroke: #2f3137; }
+      .box { fill: #23252a; stroke: #3a3c43; }
+      .kbox { fill: #1c1d21; stroke: #8db4ec; }
+      .chip { fill: #22324a; stroke: #8db4ec; }
+      .h, .b { fill: #e7e7e4; }
+      .s { fill: #a3a6ad; }
+      .m { fill: #8db4ec; }
+      .arrow { stroke: #c9cacd; }
+      .head { fill: #c9cacd; }
+      .frame { fill: #0f1012; }
+      .note { fill: #2e1d1b; stroke: #e8705f; }
+      .nt { fill: #e8705f; }
+    }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0.5" y="0.5" width="759" height="329" rx="12"/>
+  <text class="h" x="24" y="36">How the calendar gets onto the wall</text>
+
+  <!-- Home Assistant -->
+  <rect class="box" x="24" y="86" width="170" height="118" rx="10"/>
+  <text class="b" x="109" y="122" text-anchor="middle">Home Assistant</text>
+  <text class="s" x="109" y="150" text-anchor="middle">calendars</text>
+  <text class="s" x="109" y="170" text-anchor="middle">weather forecast</text>
+
+  <!-- arrow HA -> Kindle -->
+  <line class="arrow" x1="196" y1="145" x2="254" y2="145" marker-end="url(#a)"/>
+  <text class="s" x="225" y="134" text-anchor="middle">REST</text>
+  <text class="s" x="225" y="166" text-anchor="middle">6:00</text>
+  <text class="s" x="225" y="182" text-anchor="middle">18:00</text>
+
+  <!-- Kindle (logic) -->
+  <rect class="kbox" x="258" y="66" width="292" height="158" rx="10" stroke-width="1.5"/>
+  <text class="b" x="404" y="98" text-anchor="middle">Kindle Paperwhite 2 · jailbroken</text>
+  <rect class="chip" x="276" y="124" width="70" height="34" rx="7"/>
+  <text class="m" x="311" y="146" text-anchor="middle">curl</text>
+  <line class="arrow" x1="348" y1="141" x2="370" y2="141" marker-end="url(#a)"/>
+  <rect class="chip" x="372" y="124" width="70" height="34" rx="7"/>
+  <text class="m" x="407" y="146" text-anchor="middle">jq</text>
+  <line class="arrow" x1="444" y1="141" x2="466" y2="141" marker-end="url(#a)"/>
+  <rect class="chip" x="468" y="124" width="70" height="34" rx="7"/>
+  <text class="m" x="503" y="146" text-anchor="middle">FBInk</text>
+  <text class="s" x="311" y="180" text-anchor="middle">fetch</text>
+  <text class="s" x="407" y="180" text-anchor="middle">format</text>
+  <text class="s" x="503" y="180" text-anchor="middle">draw</text>
+  <text class="s" x="404" y="208" text-anchor="middle">busybox shell · Bookerly font from the device</text>
+
+  <!-- arrow -> screen -->
+  <line class="arrow" x1="552" y1="145" x2="590" y2="145" marker-end="url(#a)"/>
+
+  <!-- e-ink screen mock (758x1024 ratio) -->
+  <rect class="frame" x="596" y="40" width="140" height="200" rx="12"/>
+  <rect class="paper" x="606" y="52" width="120" height="162" rx="2"/>
+  <rect class="ink" x="614" y="62" width="46" height="6" rx="2"/>
+  <rect class="ink" x="694" y="60" width="24" height="10" rx="2"/>
+  <rect class="ink2" x="700" y="74" width="18" height="4" rx="2"/>
+  <rect class="ink" x="614" y="88" width="30" height="4" rx="2"/>
+  <rect class="ink2" x="614" y="97" width="96" height="4" rx="2"/>
+  <rect class="ink2" x="614" y="106" width="74" height="4" rx="2"/>
+  <rect class="ink" x="614" y="120" width="34" height="4" rx="2"/>
+  <rect class="ink2" x="614" y="129" width="88" height="4" rx="2"/>
+  <rect class="ink" x="614" y="143" width="28" height="4" rx="2"/>
+  <rect class="ink2" x="614" y="152" width="100" height="4" rx="2"/>
+  <rect class="ink2" x="614" y="161" width="62" height="4" rx="2"/>
+  <rect class="ink2" x="612" y="180" width="24" height="24" rx="3"/>
+  <rect class="ink2" x="640" y="180" width="24" height="24" rx="3"/>
+  <rect class="ink2" x="668" y="180" width="24" height="24" rx="3"/>
+  <rect class="ink2" x="696" y="180" width="24" height="24" rx="3"/>
+  <text class="s" x="666" y="262" text-anchor="middle">758 × 1024 e-ink</text>
+
+  <!-- failure note -->
+  <rect class="note" x="24" y="278" width="712" height="34" rx="8"/>
+  <text class="nt" x="380" y="300" text-anchor="middle">Home Assistant down? Nothing breaks – the last good calendar simply stays on the wall.</text>
+</svg>
