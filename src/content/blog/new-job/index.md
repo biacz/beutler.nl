@@ -1,6 +1,6 @@
 ---
 title: "New Job"
-description: "Since the 1st of july i finally got into a very interesting position in my company.\\"
+description: "Since the 1st of july i finally got into a very interesting position in my company."
 pubDate: 2014-07-03T10:44:27+02:00
 tags: ["VMware Horizon", "VMware", "Personal"]
 authorship: human

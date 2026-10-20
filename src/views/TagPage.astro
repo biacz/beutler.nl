@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { localize, t, tagLabel, type Lang } from '../i18n';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+  name: string;
+  posts: Post[];
+}
+const { lang, name, posts } = Astro.props;
+const ui = t(lang).tags;
+const label = tagLabel(name, lang);
+---
+
+<Base lang={lang} title={ui.pageTitle(label)} description={ui.pageDescription(label)}>
+  <div class="narrow">
+    <header class="page-head">
+      <p class="eyebrow">{ui.eyebrow}</p>
+      <h1>{label}</h1>
+      <p>{ui.count(posts.length)} · <a href={localize('/tags/', lang)}>{ui.all}</a></p>
+    </header>
+    <PostList posts={posts} lang={lang} />
+  </div>
+</Base>

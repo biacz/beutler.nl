@@ -9,10 +9,14 @@ it is also Niko's showcase for his AI projects. Never hide or soften the AI invo
 ## Publishing workflow
 
 1. `npm run new -- "Post title"` creates `src/content/blog/<slug>/index.md` with `draft: true`.
-2. Write the post in English (existing posts are English). Put images next to `index.md` and
+2. Write the post in English first (the original). Put images next to `index.md` and
    reference them relatively: `![Alt text](./image.png)`. Astro optimises them at build.
 3. Preview with the dev server (drafts are visible in dev, never in the build).
 4. Show the result to Niko. Only after his OK: set `draft: false`, commit, push.
+5. Every post exists in **both languages**: English `index.md` + German `de.md` in the same folder
+   (same images). The German file copies the frontmatter (without `legacyUrl`), translates
+   `title`/`description`/text, keeps code blocks unchanged and adds `translation: ai`.
+   Write German with "du", in Niko's voice. Project cards: `projects/<slug>.md` + `projects/de/<slug>.md`.
 
 Frontmatter fields (schema in `src/content.config.ts`): `title`, `description` (1–2 sentences,
 used in lists, RSS and link previews), `pubDate`, optional `updatedDate`, `tags`, **`authorship`**
@@ -42,12 +46,15 @@ family names.
 
 ## Structure
 
-- `src/consts.ts` – site name, nav, author, Impressum data. Texts live here.
+- `src/consts.ts` – site name, nav, author, AI model, Impressum data. Interface texts: `src/i18n.ts`.
 - `src/styles/global.css` – design tokens (colours from the old site: graphite `#3D3F45`,
   red `#A62C21`, blue `#1F4E8C`), light/dark via `light-dark()` and `[data-theme]`.
 - `src/pages/[...legacy].astro` – redirects for old WordPress URLs (posts, categories, tags).
 - `public/*.html` – redirects for URLs of the interim Netlify page.
-- Impressum and Datenschutz are German (German law); the rest of the site is English.
+- Bilingual: English at `/`, German under `/de/`. Interface texts for both languages are in
+  `src/i18n.ts`; page layouts are in `src/views/` (one view, two thin route files in `src/pages/`
+  and `src/pages/de/`). The header switch links to the same page in the other language.
+- Impressum and Datenschutz exist only in German (German law), at `/impressum/` and `/datenschutz/`.
 
 ## Rules
 

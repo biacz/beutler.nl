@@ -1,12 +1,11 @@
 ---
 title: ":: PowerCLI | Remove VMs"
-description: ":: PowerCLI | Remove VMs"
+description: "Just a quick script from me that will help delete a bunch of VMs."
 pubDate: 2015-05-13T12:34:49+02:00
 tags: ["VMware Horizon", "PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
 authorship: human
 legacyUrl: "/2015/05/13/powercli-remove-vms/"
 ---
-:: PowerCLI | Remove VMs
 
 Just a quick script from me that will help delete a bunch of VMs.\
 You need to have a list with all computer names in a .txt or .csv file for that.

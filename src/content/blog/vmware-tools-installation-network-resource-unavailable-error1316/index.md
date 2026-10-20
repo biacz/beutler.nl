@@ -1,6 +1,6 @@
 ---
 title: "VMWare Tools Installation | Network resource unavailable (error1316)"
-description: "If you ever encounter the problem that you can’t update or install vmware tools (uninstall is also affected) due to missing soure.\\"
+description: "If you ever encounter the problem that you can’t update or install vmware tools (uninstall is also affected) due to missing soure."
 pubDate: 2014-09-04T09:48:50+02:00
 tags: ["VMware", "Windows"]
 authorship: human

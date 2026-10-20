@@ -1,17 +1,28 @@
 ---
-import { AUTHORSHIP } from '../consts';
+import { t, type Authorship, type Lang } from '../i18n';
 
 interface Props {
-  authorship: keyof typeof AUTHORSHIP;
+  /** Who wrote the text – or 'translated' for the "AI-translated" badge. */
+  authorship: Authorship | 'translated';
+  lang: Lang;
   small?: boolean;
 }
-const { authorship, small = false } = Astro.props;
+const { authorship, lang, small = false } = Astro.props;
+const ui = t(lang);
+const label = authorship === 'translated' ? ui.translated : ui.authorship[authorship];
 const isAI = authorship !== 'human';
 ---
 
-<span class:list={['badge', { ai: isAI, small }]} title={AUTHORSHIP[authorship].long}>
+<span class:list={['badge', { ai: isAI, small }]} title={label.long}>
   {
-    isAI ? (
+    authorship === 'translated' ? (
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12.9 15.1l-2.5-2.5v-.1a17 17 0 0 0 3.6-6.4H17V4h-7V2H8v2H1v2h11.2A15.7 15.7 0 0 1 9 11.4 15.6 15.6 0 0 1 6.7 8H4.7a17.6 17.6 0 0 0 3 4.6l-5.1 5 1.4 1.4 5-5 3.1 3.1.8-2zM18.5 10h-2L12 22h2l1.1-3h4.8l1.1 3h2l-4.5-12zm-2.6 7l1.6-4.3 1.6 4.3h-3.2z"
+        />
+      </svg>
+    ) : isAI ? (
       <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
         <path
           fill="currentColor"
@@ -24,7 +35,7 @@ const isAI = authorship !== 'human';
       </svg>
     )
   }
-  {AUTHORSHIP[authorship].short}
+  {label.short}
 </span>
 
 <style>

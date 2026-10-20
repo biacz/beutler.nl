@@ -1,0 +1,19 @@
+---
+import TagPage from '../../../views/TagPage.astro';
+import { getPosts, groupByTag, type Post } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  return groupByTag(await getPosts('de')).map(([slug, { name, posts }]) => ({
+    params: { tag: slug },
+    props: { name, posts },
+  }));
+}
+
+interface Props {
+  name: string;
+  posts: Post[];
+}
+const { name, posts } = Astro.props;
+---
+
+<TagPage lang="de" name={name} posts={posts} />

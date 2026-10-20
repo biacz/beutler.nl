@@ -1,20 +1,17 @@
 ---
 title: "PowerCLI | Increase and Expand VM Guest OS Disk"
-description: ":: Increase and Expand VM Guest OS Disk ::"
+description: "Two scripts that increase and extend the guest OS disk of Windows XP and Windows 7 VMs with PowerCLI."
 pubDate: 2014-10-22T10:35:50+02:00
 tags: ["PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
 authorship: human
 legacyUrl: "/2014/10/22/powercli-increaseexpand-vm-guest-os-disk/"
 ---
-:: Increase and Expand VM Guest OS Disk ::
 
 Hi all,
 
 as i finally have worked out two scripts that are able to increase and extend the Guest OS Disk (XP/Win7) i thought you might find it useful.
 
 Please note that for the XP version to work both VMs (or all VMs) need to be powered off. Like that you can also increase/extend system disks.
-
-hdd-increase-xp.ps1
 
 *hdd-increase-xp.ps1*
 
@@ -56,8 +53,6 @@ PROCESS {
     }
 END {}
 ```
-
-hdd-increase-w7.ps1
 
 *hdd-increase-w7.ps1*
 

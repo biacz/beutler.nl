@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import { SITE } from '../consts';
+import { LANGS, LOCALE, langFromPath, localize, t, unlocalize, type Lang } from '../i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -11,21 +12,25 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   publishedTime?: Date;
-  lang?: string;
+  /** Defaults to the language of the URL (/de/… = German). */
+  lang?: Lang;
+  /** The same page in each language. Defaults to the same path with/without /de. */
+  alternates?: Partial<Record<Lang, string>>;
   noindex?: boolean;
 }
 
-const {
-  title,
-  description = SITE.description,
-  image = '/og-default.png',
-  type = 'website',
-  publishedTime,
-  lang = SITE.lang,
-  noindex = false,
-} = Astro.props;
+const urlLang = langFromPath(Astro.url.pathname);
+const { title, image = '/og-default.png', type = 'website', publishedTime, lang = urlLang, noindex = false } = Astro.props;
+const ui = t(lang);
+const description = Astro.props.description ?? ui.description;
+const neutral = unlocalize(Astro.url.pathname);
+const alternates: Record<Lang, string> = {
+  en: Astro.props.alternates?.en ?? localize(neutral, 'en'),
+  de: Astro.props.alternates?.de ?? localize(neutral, 'de'),
+};
+const multilingual = alternates.en !== alternates.de;
 
-const fullTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} – ${SITE.tagline}`;
+const fullTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} – ${ui.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -38,6 +43,11 @@ const ogImage = new URL(image, Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      multilingual &&
+        LANGS.map((l) => <link rel="alternate" hreflang={l} href={new URL(alternates[l], Astro.site)} />)
+    }
+    {multilingual && <link rel="alternate" hreflang="x-default" href={new URL(alternates.en, Astro.site)} />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="author" content={SITE.author} />
     <meta name="generator" content={Astro.generator} />
@@ -46,11 +56,12 @@ const ogImage = new URL(image, Astro.site);
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.title} (${lang.toUpperCase()})`} href={localize('/rss.xml', lang)} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content={LOCALE[lang].replace('-', '_')} />
     <meta property="og:title" content={title ?? SITE.title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -71,11 +82,11 @@ const ogImage = new URL(image, Astro.site);
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
+    <a class="skip-link" href="#main">{ui.skip}</a>
+    <Header lang={lang} alternates={alternates} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

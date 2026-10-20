@@ -1,6 +1,6 @@
 ---
 title: "Storage | EMC X-Brick"
-description: "What a nice storage system <3 🙂\\"
+description: "What a nice storage system <3 🙂"
 pubDate: 2014-08-26T11:59:23+02:00
 tags: ["Storage"]
 authorship: human

@@ -12,14 +12,14 @@ Welcome to Part 1 (Frontend) of my multi-part series of automating your project 
 
 Table of Contents
 
-- [My problem](#My_problem "My problem")
-- [The design](#The_design "The design")
-- [Our requirements](#Our_requirements "Our requirements")
-- [My solution](#My_solution "My solution")
-- [Frontend](#Frontend "Frontend")
-  - [Sharepoint](#Sharepoint "Sharepoint")
-  - [PowerApps](#PowerApps "PowerApps")
-  - [Flow](#Flow "Flow")
+- [My problem](#my-problem "My problem")
+- [The design](#the-design "The design")
+- [Our requirements](#our-requirements "Our requirements")
+- [My solution](#my-solution "My solution")
+- [Frontend](#frontend "Frontend")
+  - [Sharepoint](#sharepoint "Sharepoint")
+  - [PowerApps](#powerapps "PowerApps")
+  - [Flow](#flow "Flow")
 
 ### My problem
 
@@ -31,7 +31,7 @@ That’s a rough diagram of our setup. We will focus on the red circle. Everythi
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-13-1024x426.png)
 
-basic architecture
+*basic architecture*
 
 The red circle will include:
 
@@ -55,19 +55,19 @@ We want to use an IaC automation. Even better, a solution users can self-service
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-1.png)
 
-Frontend Logos
+*Frontend Logos*
 
 **Codebase & CI/CD**: Gitlab
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-4.png)
 
-Gitlab logo
+*Gitlab logo*
 
 **IaC**: Terraform
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-5-1024x383.png)
 
-terraform logo
+*terraform logo*
 
 ### Frontend
 
@@ -92,7 +92,7 @@ Below is an example of my production form.
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-9.png)
 
-powerapps example
+*powerapps example*
 
 #### Flow
 
@@ -102,13 +102,13 @@ Flow will be the frontend brain. When a user submits above form, a new sharepoin
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-10.png)
 
-flow example
+*flow example*
 
 If the manager of the Owner approves, the next flow kicks off that’s doing the actual work.
 
 ![Powerapps + Gitlab + Terraform + AzureVirtualDesktop](./image-11.png)
 
-if approved
+*if approved*
 
 As you can see we are doing some maintenance during the flow, like updating the state in the status column or sending out emails to update users during the status. The magic really happens inside the PipelineTrigger step though. This is where we call the Gitlab API to handover our payload (the user input) to terraform. Its then repeatedly calling the Gitlab API to report on the status of the pipeline. If it succeeds, that’s fine; if not, we will send a message to the AVD team to check whats going on.
 

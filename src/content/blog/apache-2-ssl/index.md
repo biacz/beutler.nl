@@ -1,6 +1,6 @@
 ---
 title: "Apache 2 & SSL"
-description: "Just activated SSL on my apache2 VirtualHost for this page.\\"
+description: "Just activated SSL on my apache2 VirtualHost for this page."
 pubDate: 2014-03-25T08:05:45+01:00
 tags: ["Apache", "Linux", "Webhosting"]
 authorship: human

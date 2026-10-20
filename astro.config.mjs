@@ -7,7 +7,7 @@ export default defineConfig({
   trailingSlash: 'always',
   // Astro 7 default 'jsx' drops line breaks between text and inline tags ("theLink"); keep spaces.
   compressHTML: true,
-  integrations: [sitemap()],
+  integrations: [sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en-GB', de: 'de-DE' } } })],
   markdown: {
     shikiConfig: {
       // Both themes are emitted as CSS variables; global.css picks one via light-dark().

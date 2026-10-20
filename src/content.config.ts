@@ -2,7 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// One folder per post: src/content/blog/<slug>/index.md (+ images next to it).
+// One folder per post: src/content/blog/<slug>/index.md (English) + de.md (German) + images next to them.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: ({ image }) =>
@@ -23,12 +23,14 @@ const blog = defineCollection({
       draft: z.boolean().default(false),
       // Path on the old WordPress blog (e.g. /2014/09/22/slug/); gets a redirect to the new URL.
       legacyUrl: z.string().optional(),
+      // Set on translations (blog/<slug>/de.md): the text was translated by AI from the English original.
+      translation: z.literal('ai').optional(),
     }),
 });
 
-// AI projects showcase, shown on /ai/. One file per project: src/content/projects/<slug>.md
+// AI projects showcase, shown on /ai/. English: src/content/projects/<slug>.md, German: projects/de/<slug>.md
 const projects = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),

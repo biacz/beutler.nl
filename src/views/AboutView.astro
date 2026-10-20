@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../consts';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ai = localize('/ai/', lang);
+---
+
+{
+  lang === 'de' ? (
+    <Base lang="de" title="Über mich" description="Über Niko Beutler und diesen Blog.">
+      <div class="narrow">
+        <header class="page-head">
+          <h1>Über mich</h1>
+        </header>
+        <div class="prose">
+          <p>
+            Hallo, ich bin Niko. Ich arbeite in der IT-Infrastruktur und führe diesen Blog seit 2014 – vor allem als
+            Notizbuch für mich selbst und hoffentlich nützlich für alle, die hier über eine Suchmaschine landen.
+          </p>
+          <p>
+            Die frühen Beiträge drehen sich um VMware vSphere und Horizon, PowerShell und PowerCLI und den Betrieb
+            eigener Linux-Web- und Mailserver. Später ging es weiter mit Azure, Azure Virtual Desktop und der Power
+            Platform. Zwischendurch gab es auch mal einen FPV-Quadcopter.
+          </p>
+          <h2 id="contact">Kontakt</h2>
+          <p>
+            Du findest mich auf <a href={SITE.github}>GitHub</a>. Die rechtlichen Angaben stehen im{' '}
+            <a href="/impressum/">Impressum</a>.
+          </p>
+          <h2>Über diese Seite</h2>
+          <p>
+            Seit Oktober 2026 wird diese Seite <strong>von KI gebaut und gepflegt</strong> – von Claude (Anthropic),
+            zusammen mit mir. Die KI schreibt den Code, entwirft Beiträge aus meinen Vorgaben und übersetzt sie, und ich
+            prüfe alles, bevor es live geht. Jeder Beitrag ist gekennzeichnet. Die Details stehen auf der{' '}
+            <a href={ai}>KI-Seite</a>.
+          </p>
+          <p>
+            Technisch ist es eine statische Seite, gebaut mit <a href="https://astro.build">Astro</a> und gehostet auf
+            GitHub Pages. Keine Cookies, kein Tracking, keine Kommentare. Die alten WordPress-Beiträge wurden aus dem{' '}
+            <a href="https://web.archive.org/">Internet Archive</a> wiederhergestellt.
+          </p>
+        </div>
+      </div>
+    </Base>
+  ) : (
+    <Base lang="en" title="About" description="About Niko Beutler and this blog.">
+      <div class="narrow">
+        <header class="page-head">
+          <h1>About</h1>
+        </header>
+        <div class="prose">
+          <p>
+            Hi, I’m Niko. I work in IT infrastructure and have kept this blog since 2014 – mostly as a notebook for
+            myself, and hopefully useful to whoever lands here from a search engine.
+          </p>
+          <p>
+            The early posts are about VMware vSphere and Horizon, PowerShell and PowerCLI, and running my own Linux web
+            and mail servers. Later it moved on to Azure, Azure Virtual Desktop and the Power Platform. In between there
+            was the occasional FPV quadcopter build.
+          </p>
+          <h2 id="contact">Contact</h2>
+          <p>
+            Find me on <a href={SITE.github}>GitHub</a>. Legal details are in the <a href="/impressum/">Impressum</a>.
+          </p>
+          <h2>About this site</h2>
+          <p>
+            Since October 2026 this site is <strong>built and maintained by AI</strong> – Claude by Anthropic, working
+            with me. It writes the code, drafts posts from my input and translates them, and I review everything before
+            it goes live. Each post is labeled with who wrote it. The details are on the <a href={ai}>AI page</a>.
+          </p>
+          <p>
+            Technically it’s a static site built with <a href="https://astro.build">Astro</a> and hosted on GitHub Pages.
+            No cookies, no tracking, no comments. The old WordPress posts were restored from the{' '}
+            <a href="https://web.archive.org/">Internet Archive</a>.
+          </p>
+        </div>
+      </div>
+    </Base>
+  )
+}

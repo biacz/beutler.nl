@@ -1,12 +1,30 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { SITE } from '../consts';
+import { localize, type Lang } from '../i18n';
 
 export type Post = CollectionEntry<'blog'>;
+export type Project = CollectionEntry<'projects'>;
 
-/** All published posts, newest first. Drafts only show up in dev. */
-export async function getPosts(): Promise<Post[]> {
-  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+// English post: blog/<slug>/index.md (id "<slug>"); German: blog/<slug>/de.md (id "<slug>/de").
+export const postLang = (p: Post): Lang => (p.id.endsWith('/de') ? 'de' : 'en');
+export const postSlug = (p: Post): string => p.id.replace(/\/de$/, '');
+
+/** Published posts of one language, newest first. Drafts only show up in dev. */
+export async function getPosts(lang: Lang = 'en'): Promise<Post[]> {
+  const posts = await getCollection(
+    'blog',
+    (p) => postLang(p) === lang && (import.meta.env.DEV || !p.data.draft),
+  );
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+}
+
+export function postUrl(post: Post): string {
+  return localize(`/blog/${postSlug(post)}/`, postLang(post));
+}
+
+// English project: projects/<slug>.md; German: projects/de/<slug>.md.
+export async function getProjects(lang: Lang = 'en'): Promise<Project[]> {
+  const all = await getCollection('projects', (p) => (lang === 'de') === p.id.startsWith('de/'));
+  return all.sort((a, b) => a.data.order - b.data.order);
 }
 
 /** Minutes to read, assuming ~200 words per minute. */
@@ -37,10 +55,4 @@ export function groupByTag(posts: Post[]) {
     }
   }
   return [...map.entries()].sort((a, b) => b[1].posts.length - a[1].posts.length);
-}
-
-export const dateFormat = new Intl.DateTimeFormat(SITE.locale, { dateStyle: 'long', timeZone: 'Europe/Berlin' });
-
-export function postUrl(post: Post): string {
-  return `/blog/${post.id}/`;
 }

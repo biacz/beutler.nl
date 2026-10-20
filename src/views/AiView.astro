@@ -1,0 +1,315 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import AuthorshipBadge from '../components/AuthorshipBadge.astro';
+import { AI, SITE } from '../consts';
+import { formatDate, formatMonth, localize, t, type Authorship, type Lang } from '../i18n';
+import { getPosts, getProjects } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang);
+
+const projects = await getProjects(lang);
+const rendered = await Promise.all(projects.map(async (p) => ({ p, Content: (await render(p)).Content })));
+
+const posts = await getPosts(lang);
+const postSlugs = new Set(posts.map((p) => p.id.replace(/\/de$/, '')));
+const kinds = Object.keys(ui.authorship) as Authorship[];
+const counts = Object.fromEntries(kinds.map((k) => [k, posts.filter((p) => p.data.authorship === k).length]));
+const restoredCount = posts.filter((p) => p.data.authorship === 'human' && p.data.pubDate.getFullYear() < 2026).length;
+const since = formatDate(AI.since, lang);
+const agents = `${SITE.repo}/blob/main/AGENTS.md`;
+
+const STATUS: Record<string, Record<Lang, string>> = {
+  live: { en: 'live', de: 'live' },
+  'in progress': { en: 'in progress', de: 'in Arbeit' },
+  experiment: { en: 'experiment', de: 'Experiment' },
+  retired: { en: 'retired', de: 'eingestellt' },
+};
+
+const T = {
+  en: {
+    title: 'AI',
+    description:
+      'This site is built and maintained by AI (Claude) together with Niko. What the AI does, what Niko does, how posts are labeled, and Niko’s AI projects.',
+    eyebrow: 'Transparency',
+    h1: 'This site is maintained by AI.',
+    lead: `Since ${since}, beutler.nl is built, run and largely written by ${AI.name}, an AI by ${AI.maker}, working together with me. That’s a deliberate choice, not something to hide – this blog is also where I show what I build with AI.`,
+    who: 'Who does what',
+    aiTitle: `The AI (${AI.name})`,
+    aiDoes: [
+      'writes and maintains all code, design and the deployment',
+      'drafts posts from my notes, ideas and experiments',
+      'restored the 2014–2022 posts from the Internet Archive',
+      'translates every post into German (labeled as AI-translated)',
+      'keeps dependencies and docs up to date',
+    ],
+    meTitle: 'Me (Niko)',
+    meDoes: [
+      'decides what to build and what to write about',
+      'reviews every post and change before it goes live',
+      'is responsible for everything published here',
+      'still writes some posts myself – they’re labeled',
+    ],
+    labels: 'How posts are labeled',
+    labelsIntro: 'Every post says who wrote it, right under the title:',
+    posts: (n: number) => `${n} ${n === 1 ? 'post' : 'posts'}`,
+    labelsNote: `The label is a required field in the code: a post without it doesn’t build. The ${restoredCount} posts from 2014–2022 are my own writing from back then; the AI only restored them.`,
+    setup: 'The setup',
+    setupAi: `${AI.model} in ${AI.tool}, running on my PC with access to this site’s repository.`,
+    setupSite: `Astro, posts as Markdown files, hosted on GitHub Pages. Every change is a git commit – the AI’s commits are marked as co-authored by ${AI.name}.`,
+    rulesPre: 'Rules for the AI',
+    rulesPost: ': nothing goes live without my OK, no tracking, every post labeled.',
+    rulesIn: 'live in the repository',
+    publicPre: 'Everything is public:',
+    publicLink: 'source code and full history on GitHub',
+    projects: 'AI projects',
+    projectsIntro: 'Things I build with AI. More to come.',
+    sinceLabel: 'Since',
+    source: 'Source',
+    writeup: 'Write-up',
+  },
+  de: {
+    title: 'KI',
+    description:
+      'Diese Seite wird von KI (Claude) gemeinsam mit Niko gebaut und gepflegt. Was die KI macht, was Niko macht, wie Beiträge gekennzeichnet sind, und Nikos KI-Projekte.',
+    eyebrow: 'Transparenz',
+    h1: 'Diese Seite wird von KI gepflegt.',
+    lead: `Seit dem ${since} wird beutler.nl von ${AI.name} gebaut, betrieben und größtenteils geschrieben – einer KI von ${AI.maker}, zusammen mit mir. Das ist eine bewusste Entscheidung und nichts, was ich verstecke: Dieser Blog ist auch der Ort, an dem ich zeige, was ich mit KI baue.`,
+    who: 'Wer macht was',
+    aiTitle: `Die KI (${AI.name})`,
+    aiDoes: [
+      'schreibt und pflegt den gesamten Code, das Design und das Deployment',
+      'entwirft Beiträge aus meinen Notizen, Ideen und Experimenten',
+      'hat die Beiträge von 2014–2022 aus dem Internet Archive wiederhergestellt',
+      'übersetzt jeden Beitrag ins Deutsche (gekennzeichnet als KI-übersetzt)',
+      'hält Abhängigkeiten und Dokumentation aktuell',
+    ],
+    meTitle: 'Ich (Niko)',
+    meDoes: [
+      'entscheide, was gebaut wird und worüber ich schreibe',
+      'prüfe jeden Beitrag und jede Änderung, bevor sie live geht',
+      'bin für alles verantwortlich, was hier erscheint',
+      'schreibe manche Beiträge weiterhin selbst – sie sind gekennzeichnet',
+    ],
+    labels: 'Wie Beiträge gekennzeichnet sind',
+    labelsIntro: 'Jeder Beitrag sagt direkt unter dem Titel, wer ihn geschrieben hat:',
+    posts: (n: number) => `${n} ${n === 1 ? 'Beitrag' : 'Beiträge'}`,
+    labelsNote: `Die Kennzeichnung ist im Code ein Pflichtfeld: Ein Beitrag ohne sie wird gar nicht gebaut. Die ${restoredCount} Beiträge von 2014–2022 habe ich damals selbst auf Englisch geschrieben; die KI hat sie nur wiederhergestellt und übersetzt.`,
+    setup: 'Der Aufbau',
+    setupAi: `${AI.model} in ${AI.tool}, läuft auf meinem PC mit Zugriff auf das Repository dieser Seite.`,
+    setupSite: `Astro, Beiträge als Markdown-Dateien, gehostet auf GitHub Pages. Jede Änderung ist ein Git-Commit – die Commits der KI sind als Co-Autor ${AI.name} markiert.`,
+    rulesPre: 'Regeln für die KI',
+    rulesPost: ': nichts geht ohne mein OK live, kein Tracking, jeder Beitrag gekennzeichnet.',
+    rulesIn: 'stehen im Repository',
+    publicPre: 'Alles ist öffentlich:',
+    publicLink: 'Quellcode und komplette Historie auf GitHub',
+    projects: 'KI-Projekte',
+    projectsIntro: 'Dinge, die ich mit KI baue. Es kommen weitere dazu.',
+    sinceLabel: 'Seit',
+    source: 'Quellcode',
+    writeup: 'Beitrag dazu',
+  },
+}[lang];
+---
+
+<Base lang={lang} title={T.title} description={T.description}>
+  <div class="narrow">
+    <header class="page-head">
+      <p class="eyebrow">{T.eyebrow}</p>
+      <h1>{T.h1}</h1>
+      <p class="lead">{T.lead}</p>
+    </header>
+
+    <div class="prose">
+      <h2>{T.who}</h2>
+      <div class="split">
+        <section class="card ai">
+          <h3>{T.aiTitle}</h3>
+          <ul>{T.aiDoes.map((x) => <li>{x}</li>)}</ul>
+        </section>
+        <section class="card">
+          <h3>{T.meTitle}</h3>
+          <ul>{T.meDoes.map((x) => <li>{x}</li>)}</ul>
+        </section>
+      </div>
+
+      <h2>{T.labels}</h2>
+      <p>{T.labelsIntro}</p>
+      <ul class="labels">
+        {
+          kinds.map((k) => (
+            <li>
+              <AuthorshipBadge authorship={k} lang={lang} /> {ui.authorship[k].long}{' '}
+              <span class="meta">({T.posts(counts[k])})</span>
+            </li>
+          ))
+        }
+        {
+          lang === 'de' && (
+            <li>
+              <AuthorshipBadge authorship="translated" lang={lang} /> {ui.translated.long}
+            </li>
+          )
+        }
+      </ul>
+      <p>{T.labelsNote}</p>
+
+      <h2>{T.setup}</h2>
+      <ul>
+        <li><strong>{lang === 'de' ? 'KI' : 'AI'}:</strong> {T.setupAi}</li>
+        <li><strong>{lang === 'de' ? 'Seite' : 'Site'}:</strong> {T.setupSite}</li>
+        <li>
+          <strong>{T.rulesPre}</strong> {T.rulesIn} (<a href={agents}>AGENTS.md</a>){T.rulesPost}
+        </li>
+        <li>
+          <strong>{T.publicPre}</strong> <a href={SITE.repo}>{T.publicLink}</a>.
+        </li>
+      </ul>
+    </div>
+
+    <section class="projects" aria-labelledby="projects">
+      <h2 id="projects">{T.projects}</h2>
+      <p class="meta">{T.projectsIntro}</p>
+      <ul>
+        {
+          rendered.map(({ p, Content }) => (
+            <li class="project">
+              <div class="project-head">
+                <h3>{p.data.link ? <a href={p.data.link}>{p.data.title}</a> : p.data.title}</h3>
+                <span class:list={['status', p.data.status.replace(' ', '-')]}>{STATUS[p.data.status][lang]}</span>
+              </div>
+              <p class="summary">{p.data.summary}</p>
+              <div class="prose small">
+                <Content />
+              </div>
+              <p class="meta">
+                {T.sinceLabel} {formatMonth(p.data.started, lang)}
+                {p.data.repo && (
+                  <>
+                    {' · '}
+                    <a href={p.data.repo}>{T.source}</a>
+                  </>
+                )}
+                {p.data.post && postSlugs.has(p.data.post) && (
+                  <>
+                    {' · '}
+                    <a href={localize(`/blog/${p.data.post}/`, lang)}>{T.writeup}</a>
+                  </>
+                )}
+              </p>
+              {p.data.stack.length > 0 && (
+                <ul class="tags">
+                  {p.data.stack.map((s) => (
+                    <li>
+                      <span class="tag">{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .lead {
+    font-size: 1.1em;
+  }
+  .split {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .card {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .card.ai {
+    border-color: color-mix(in oklab, var(--link) 40%, var(--border));
+  }
+  .card h3 {
+    margin-top: 0;
+    font-size: 1.05em;
+  }
+  .card ul {
+    margin-top: 0.5rem;
+  }
+  .labels {
+    padding: 0;
+    list-style: none;
+  }
+  .labels li + li {
+    margin-top: 0.6rem;
+  }
+  .labels li::marker {
+    content: none;
+  }
+  .projects {
+    margin-top: 3.5rem;
+  }
+  .projects h2 {
+    font-size: 1.6em;
+  }
+  .projects > ul {
+    margin-top: 1.25rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+  .project {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .project-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .project h3 {
+    font-size: 1.2rem;
+  }
+  .project h3 a {
+    color: var(--text);
+  }
+  .summary {
+    font-weight: 500;
+  }
+  .prose.small {
+    color: var(--muted);
+    font-size: 0.95em;
+  }
+  .status {
+    padding: 0 0.5rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .status.live {
+    background: color-mix(in oklab, #2f9e44 18%, transparent);
+    color: light-dark(#237032, #69db7c);
+  }
+</style>

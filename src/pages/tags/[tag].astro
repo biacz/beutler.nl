@@ -1,10 +1,9 @@
 ---
-import Base from '../../layouts/Base.astro';
-import PostList from '../../components/PostList.astro';
+import TagPage from '../../views/TagPage.astro';
 import { getPosts, groupByTag, type Post } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  return groupByTag(await getPosts()).map(([slug, { name, posts }]) => ({
+  return groupByTag(await getPosts('en')).map(([slug, { name, posts }]) => ({
     params: { tag: slug },
     props: { name, posts },
   }));
@@ -17,13 +16,4 @@ interface Props {
 const { name, posts } = Astro.props;
 ---
 
-<Base title={`Posts about ${name}`} description={`All posts on beutler.nl about ${name}.`}>
-  <div class="narrow">
-    <header class="page-head">
-      <p class="eyebrow">Topic</p>
-      <h1>{name}</h1>
-      <p>{posts.length} {posts.length === 1 ? 'post' : 'posts'} · <a href="/tags/">all topics</a></p>
-    </header>
-    <PostList posts={posts} />
-  </div>
-</Base>
+<TagPage lang="en" name={name} posts={posts} />

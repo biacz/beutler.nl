@@ -1,5 +1,12 @@
 ---
-import { AI, SITE } from '../consts';
+import { SITE } from '../consts';
+import { localize, t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang);
 const year = new Date().getFullYear();
 ---
 
@@ -8,14 +15,14 @@ const year = new Date().getFullYear();
     <div>
       <p>© 2014–{year} {SITE.author}</p>
       <p class="ai-line">
-        Built and maintained by AI ({AI.name}) with Niko. <a href="/ai/">How this works</a>
+        {ui.footerAi} <a href={localize('/ai/', lang)}>{ui.howItWorks}</a>
       </p>
     </div>
     <ul>
-      <li><a href="/rss.xml">RSS</a></li>
+      <li><a href={localize('/rss.xml', lang)}>RSS</a></li>
       <li><a href={SITE.github} rel="me">GitHub</a></li>
-      <li><a href="/impressum/">Impressum</a></li>
-      <li><a href="/datenschutz/">Datenschutz</a></li>
+      <li><a href="/impressum/" lang="de">Impressum</a></li>
+      <li><a href="/datenschutz/" lang="de">Datenschutz</a></li>
     </ul>
   </div>
 </footer>

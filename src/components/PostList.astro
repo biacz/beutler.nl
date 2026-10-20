@@ -1,12 +1,15 @@
 ---
 import AuthorshipBadge from './AuthorshipBadge.astro';
-import { dateFormat, postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
+import { formatDate, localize, t, tagLabel, type Lang } from '../i18n';
+import { postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
 
 interface Props {
   posts: Post[];
+  lang: Lang;
   headingLevel?: 2 | 3;
 }
-const { posts, headingLevel = 2 } = Astro.props;
+const { posts, lang, headingLevel = 2 } = Astro.props;
+const ui = t(lang);
 const H = `h${headingLevel}`;
 ---
 
@@ -16,27 +19,28 @@ const H = `h${headingLevel}`;
       <li>
         <article>
           <p class="meta">
-            <time datetime={post.data.pubDate.toISOString()}>{dateFormat.format(post.data.pubDate)}</time>
+            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
             {' · '}
-            {readingTime(post.body)} min read
-            {post.data.authorship !== 'human' && (
+            {ui.minRead(readingTime(post.body))}{' '}
+            <AuthorshipBadge authorship={post.data.authorship} lang={lang} small />
+            {post.data.translation && (
               <>
                 {' '}
-                <AuthorshipBadge authorship={post.data.authorship} small />
+                <AuthorshipBadge authorship="translated" lang={lang} small />
               </>
             )}
-            {post.data.draft && <span class="draft">Draft</span>}
+            {post.data.draft && <span class="draft">{ui.draft}</span>}
           </p>
           <H class="title">
             <a href={postUrl(post)}>{post.data.title}</a>
           </H>
           <p class="desc">{post.data.description}</p>
           {post.data.tags.length > 0 && (
-            <ul class="tags" aria-label="Topics">
+            <ul class="tags" aria-label={ui.topics}>
               {post.data.tags.map((tag) => (
                 <li>
-                  <a class="tag" href={`/tags/${tagSlug(tag)}/`}>
-                    {tag}
+                  <a class="tag" href={localize(`/tags/${tagSlug(tag)}/`, lang)}>
+                    {tagLabel(tag, lang)}
                   </a>
                 </li>
               ))}
@@ -64,6 +68,12 @@ const H = `h${headingLevel}`;
     display: grid;
     gap: 0.4rem;
   }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.4rem;
+  }
   .title {
     font-size: 1.3rem;
   }
@@ -82,7 +92,6 @@ const H = `h${headingLevel}`;
     margin-top: 0.25rem;
   }
   .draft {
-    margin-left: 0.5rem;
     padding: 0 0.4rem;
     border-radius: 0.25rem;
     background: var(--accent);

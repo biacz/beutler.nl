@@ -6,7 +6,7 @@ tags: ["PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
 authorship: human
 legacyUrl: "/2014/07/31/report-guest-disk-sizes-powercli/"
 ---
-I already explained in my [previous post](http://beutler.nl/?p=80) how to grow/extend Guest OS disks with PowerCLI.
+I already explained in my [previous post](/blog/change-grow-vm-hard-disk/) how to grow/extend Guest OS disks with PowerCLI.
 
 Now before we can increase harddrives we also need to identify them. I therefor created this script.
 

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { t, type Lang } from '../i18n';
+import { getPosts } from '../lib/posts';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang).blog;
+const posts = await getPosts(lang);
+const years = Map.groupBy(posts, (p) => p.data.pubDate.getFullYear());
+---
+
+<Base lang={lang} title={ui.title} description={ui.description}>
+  <div class="narrow">
+    <header class="page-head">
+      <h1>{ui.title}</h1>
+      <p>{ui.intro(posts.length)}</p>
+    </header>
+    {
+      [...years].map(([year, list]) => (
+        <section class="year" aria-labelledby={`y${year}`}>
+          <h2 id={`y${year}`}>{year}</h2>
+          <PostList posts={list} lang={lang} headingLevel={3} />
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .year + .year {
+    margin-top: 2.5rem;
+  }
+  .year h2 {
+    position: sticky;
+    top: 3.5rem;
+    z-index: 1;
+    padding-block: 0.5rem;
+    background: var(--bg);
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+</style>

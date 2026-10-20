@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Not found" noindex>
+<Base title="Not found / Nicht gefunden" noindex alternates={{ en: '/', de: '/de/' }}>
   <div class="narrow page-head">
     <p class="eyebrow">404</p>
     <h1>This page doesn’t exist (anymore).</h1>
@@ -10,5 +10,17 @@ import Base from '../layouts/Base.astro';
       The blog moved from WordPress in 2026 and some URLs changed. Try the <a href="/blog/">list of all posts</a> or the
       <a href="/tags/">topics</a>.
     </p>
+    <h2 lang="de" class="de">Diese Seite gibt es nicht (mehr).</h2>
+    <p lang="de">
+      Der Blog ist 2026 von WordPress umgezogen, dabei haben sich manche Adressen geändert. Schau in die
+      <a href="/de/blog/">Liste aller Beiträge</a> oder die <a href="/de/tags/">Themen</a>.
+    </p>
   </div>
 </Base>
+
+<style>
+  .de {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+</style>
