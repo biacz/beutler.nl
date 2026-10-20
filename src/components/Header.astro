@@ -1,0 +1,155 @@
+---
+import { NAV } from '../consts';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="wordmark" href="/" aria-label="beutler.nl – home">
+      beutler<span class="dot">.</span><span class="tld">nl</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path>
+        </g>
+      </svg>
+      <svg class="moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path fill="currentColor" d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle')!;
+  const isDark = () =>
+    root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const sync = () => button.setAttribute('aria-pressed', String(isDark()));
+  sync();
+  button.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    sync();
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--header-bg);
+    color: #fff;
+    view-transition-name: site-header;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.5rem;
+  }
+  .wordmark {
+    margin-right: auto;
+    color: #fff;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .dot {
+    color: #e0544a;
+  }
+  .tld {
+    color: #8db4ec;
+  }
+  ul {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0;
+    list-style: none;
+  }
+  nav a {
+    display: block;
+    padding: 1rem 0.6rem;
+    color: #e5e5e5;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: inset 0 -3px 0 transparent;
+    transition: box-shadow 0.15s, color 0.15s;
+  }
+  nav a:hover {
+    color: #fff;
+    box-shadow: inset 0 -3px 0 rgb(255 255 255 / 0.35);
+  }
+  /* The old site marked the active page red – kept as an accent bar. */
+  nav a[aria-current='page'] {
+    color: #fff;
+    box-shadow: inset 0 -3px 0 #e0544a;
+  }
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid rgb(255 255 255 / 0.25);
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  .theme-toggle:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+  .theme-toggle .moon {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .theme-toggle .sun {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .theme-toggle .moon {
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme-toggle .sun {
+      display: none;
+    }
+    :global(:root:not([data-theme='light'])) .theme-toggle .moon {
+      display: block;
+    }
+  }
+  @media (max-width: 30rem) {
+    .bar {
+      gap: 0.5rem;
+    }
+    .wordmark {
+      font-size: 1.15rem;
+    }
+    nav a {
+      padding-inline: 0.4rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

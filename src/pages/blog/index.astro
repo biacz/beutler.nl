@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/posts';
+
+const posts = await getPosts();
+const years = Map.groupBy(posts, (p) => p.data.pubDate.getFullYear());
+---
+
+<Base title="Blog" description="All posts on beutler.nl, newest first.">
+  <div class="narrow">
+    <header class="page-head">
+      <h1>Blog</h1>
+      <p>{posts.length} posts since 2014, newest first.</p>
+    </header>
+    {
+      [...years].map(([year, list]) => (
+        <section class="year" aria-labelledby={`y${year}`}>
+          <h2 id={`y${year}`}>{year}</h2>
+          <PostList posts={list} headingLevel={3} />
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .year + .year {
+    margin-top: 2.5rem;
+  }
+  .year h2 {
+    position: sticky;
+    top: 3.5rem;
+    z-index: 1;
+    padding-block: 0.5rem;
+    background: var(--bg);
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+</style>

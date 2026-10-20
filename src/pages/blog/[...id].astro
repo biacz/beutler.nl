@@ -1,0 +1,207 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { OUTDATED_AFTER_YEARS } from '../../consts';
+import { dateFormat, getPosts, postUrl, readingTime, tagSlug, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { id: post.id },
+    // posts are newest first: "newer" is the previous entry, "older" the next.
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+interface Props {
+  post: Post;
+  newer?: Post;
+  older?: Post;
+}
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
+const { title, description, pubDate, updatedDate, tags, cover, coverAlt } = post.data;
+
+const toc = headings.filter((h) => h.depth === 2);
+const lastTouched = updatedDate ?? pubDate;
+const ageYears = (Date.now() - lastTouched.valueOf()) / (365.25 * 24 * 3600 * 1000);
+const outdated = ageYears >= OUTDATED_AFTER_YEARS;
+---
+
+<Base title={title} description={description} type="article" publishedTime={pubDate}>
+  <article class="narrow post">
+    <header class="page-head">
+      {
+        tags.length > 0 && (
+          <ul class="tags">
+            {tags.map((tag) => (
+              <li>
+                <a class="tag" href={`/tags/${tagSlug(tag)}/`}>
+                  {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <h1>{title}</h1>
+      <p class="meta">
+        <time datetime={pubDate.toISOString()}>{dateFormat.format(pubDate)}</time>
+        {
+          updatedDate && (
+            <>
+              {' · updated '}
+              <time datetime={updatedDate.toISOString()}>{dateFormat.format(updatedDate)}</time>
+            </>
+          )
+        }
+        {' · '}
+        {readingTime(post.body)} min read
+      </p>
+    </header>
+
+    {
+      outdated && (
+        <aside class="note" role="note">
+          <strong>Heads up:</strong> this post is from {pubDate.getFullYear()}. Versions, links and best practices may
+          have changed since.
+        </aside>
+      )
+    }
+
+    {cover && <Image class="cover" src={cover} alt={coverAlt ?? ''} widths={[720, 1440]} sizes="(min-width: 50rem) 720px, 100vw" />}
+
+    {
+      toc.length >= 3 && (
+        <details class="toc">
+          <summary>Contents</summary>
+          <ol>
+            {toc.map((h) => (
+              <li>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      )
+    }
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="pager" aria-label="More posts">
+      {
+        older ? (
+          <a class="prev" href={postUrl(older)}>
+            <span class="meta">← Older</span>
+            {older.data.title}
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        newer && (
+          <a class="next" href={postUrl(newer)}>
+            <span class="meta">Newer →</span>
+            {newer.data.title}
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>
+
+<script>
+  // Copy buttons for code blocks.
+  for (const pre of document.querySelectorAll<HTMLPreElement>('.prose pre.astro-code')) {
+    const wrap = document.createElement('div');
+    wrap.className = 'code-block';
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = 'Copied ✓';
+      } catch {
+        btn.textContent = 'Failed';
+      }
+      setTimeout(() => (btn.textContent = 'Copy'), 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
+
+<style>
+  .post .tags {
+    margin-bottom: 0.9rem;
+  }
+  .post .page-head h1 {
+    font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.8rem);
+  }
+  .post .meta {
+    margin-top: 0.75rem;
+  }
+  .note {
+    margin-bottom: 2rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--surface-2);
+    font-size: 0.92rem;
+  }
+  .cover {
+    margin-bottom: 2rem;
+    border-radius: var(--radius);
+  }
+  .toc {
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .toc summary {
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .toc ol {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+  }
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .pager a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .pager a:hover {
+    border-color: var(--link);
+  }
+  .pager .next {
+    text-align: right;
+  }
+  @media (max-width: 36rem) {
+    .pager {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

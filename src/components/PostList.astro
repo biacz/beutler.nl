@@ -1,0 +1,85 @@
+---
+import { dateFormat, postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  headingLevel?: 2 | 3;
+}
+const { posts, headingLevel = 2 } = Astro.props;
+const H = `h${headingLevel}`;
+---
+
+<ul class="post-list">
+  {
+    posts.map((post) => (
+      <li>
+        <article>
+          <p class="meta">
+            <time datetime={post.data.pubDate.toISOString()}>{dateFormat.format(post.data.pubDate)}</time>
+            {' · '}
+            {readingTime(post.body)} min read
+            {post.data.draft && <span class="draft">Draft</span>}
+          </p>
+          <H class="title">
+            <a href={postUrl(post)}>{post.data.title}</a>
+          </H>
+          <p class="desc">{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <ul class="tags" aria-label="Topics">
+              {post.data.tags.map((tag) => (
+                <li>
+                  <a class="tag" href={`/tags/${tagSlug(tag)}/`}>
+                    {tag}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .post-list {
+    padding: 0;
+    list-style: none;
+  }
+  .post-list > li {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-list > li:first-child {
+    padding-top: 0.5rem;
+  }
+  article {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+  .title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .title a:hover {
+    color: var(--link);
+    text-decoration: underline;
+  }
+  .desc {
+    color: var(--muted);
+  }
+  .tags {
+    margin-top: 0.25rem;
+  }
+  .draft {
+    margin-left: 0.5rem;
+    padding: 0 0.4rem;
+    border-radius: 0.25rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+  }
+</style>

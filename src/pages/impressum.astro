@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { IMPRINT } from '../consts';
+
+const incomplete = Object.values(IMPRINT).some((v) => v.includes('TODO'));
+if (incomplete && process.env.CI) {
+  throw new Error('Impressum is incomplete: fill in IMPRINT in src/consts.ts before deploying.');
+}
+---
+
+<Base title="Impressum" description="Impressum von beutler.nl" lang="de" noindex>
+  <div class="narrow">
+    <header class="page-head">
+      <h1>Impressum</h1>
+    </header>
+    <div class="prose">
+      {incomplete && <p class="todo">Entwurf: Impressum-Daten in <code>src/consts.ts</code> fehlen noch.</p>}
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {IMPRINT.name}<br />
+        {IMPRINT.street}<br />
+        {IMPRINT.city}<br />
+        {IMPRINT.country}
+      </p>
+      <h2>Kontakt</h2>
+      <p>E-Mail: {IMPRINT.email}</p>
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>{IMPRINT.name}, Anschrift wie oben.</p>
+      <h2>Haftung für Links</h2>
+      <p>
+        Diese Seite enthält Links zu externen Websites, auf deren Inhalte ich keinen Einfluss habe. Für diese fremden
+        Inhalte ist stets der jeweilige Anbieter verantwortlich. Gerade ältere Beiträge können Links enthalten, die
+        inzwischen ins Leere führen oder auf geänderte Inhalte zeigen. Wird mir eine Rechtsverletzung bekannt, entferne
+        ich den Link umgehend.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .todo {
+    padding: 0.75rem 1rem;
+    border: 2px dashed var(--accent);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font-weight: 600;
+  }
+</style>
