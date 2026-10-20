@@ -3,6 +3,7 @@ title: "ViewCLI | Find users & assigned VM that did not login for more than 90 d
 description: "I didn’t find this anywhere else so i decided to create my own ViewCLI script."
 pubDate: 2014-09-24T10:55:10+02:00
 tags: ["VMware Horizon", "PowerCLI", "PowerShell", "VMware"]
+authorship: human
 legacyUrl: "/2014/09/24/viewcli-find-users-assigned-vm-login-90-days/"
 ---
 I didn’t find this anywhere else so i decided to create my own ViewCLI script.

@@ -29,6 +29,13 @@ const topTags = groupByTag(posts).slice(0, 10);
       I write down what I figure out along the way: PowerShell and PowerCLI scripts, VMware, Azure, Linux servers,
       and whatever else I’m tinkering with. Some of it dates back to 2014 – it’s all still here.
     </p>
+    <p class="ai-note">
+      <span class="spark" aria-hidden="true">✦</span>
+      <span>
+        <strong>Heads up: this blog is maintained by AI.</strong> Since October 2026, Claude builds and runs this site
+        and writes posts with me. Every post is labeled. <a href="/ai/">What that means →</a>
+      </span>
+    </p>
   </section>
 
   <div class="container layout">
@@ -91,6 +98,20 @@ const topTags = groupByTag(posts).slice(0, 10);
     margin-top: 0.8rem;
     color: var(--muted);
     font-size: 1.1em;
+  }
+  .ai-note {
+    display: flex;
+    gap: 0.6rem;
+    max-width: 60ch;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid color-mix(in oklab, var(--link) 40%, var(--border));
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--link) 8%, transparent);
+    font-size: 0.95rem;
+  }
+  .spark {
+    color: var(--link);
   }
   .layout {
     display: grid;

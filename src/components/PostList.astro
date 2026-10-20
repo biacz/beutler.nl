@@ -1,4 +1,5 @@
 ---
+import AuthorshipBadge from './AuthorshipBadge.astro';
 import { dateFormat, postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
 
 interface Props {
@@ -18,6 +19,12 @@ const H = `h${headingLevel}`;
             <time datetime={post.data.pubDate.toISOString()}>{dateFormat.format(post.data.pubDate)}</time>
             {' · '}
             {readingTime(post.body)} min read
+            {post.data.authorship !== 'human' && (
+              <>
+                {' '}
+                <AuthorshipBadge authorship={post.data.authorship} small />
+              </>
+            )}
             {post.data.draft && <span class="draft">Draft</span>}
           </p>
           <H class="title">

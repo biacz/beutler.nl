@@ -3,6 +3,7 @@ title: "Change & Grow VM Hard Disk"
 description: "We are right now in the need of resizing all of our Hard Disks on the Virtual Desktop VMs from 40GB to 60GB.\\"
 pubDate: 2014-07-30T13:22:20+02:00
 tags: ["VMware Horizon", "PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
+authorship: human
 legacyUrl: "/2014/07/30/change-grow-vm-hard-disk/"
 ---
 We are right now in the need of resizing all of our Hard Disks on the Virtual Desktop VMs from 40GB to 60GB.\

@@ -3,6 +3,7 @@ title: "Ubuntu | Watch Netflix on Linux"
 description: "Hi everyone, i recently noticed that it’s possible to watch Netflix on Linux (Ubuntu 13+) and Chrome Beta."
 pubDate: 2014-09-24T04:23:24+00:00
 tags: ["Linux"]
+authorship: human
 legacyUrl: "/ubuntu-watch-netflix-linux/"
 ---
 Hi everyone, i recently noticed that it’s possible to watch Netflix on Linux (Ubuntu 13+) and Chrome Beta.

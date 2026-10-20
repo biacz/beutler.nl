@@ -3,6 +3,7 @@ title: "Power Automate – Combine multiple JSON objects for Response"
 description: "Today I was looking at running multiple HTTP requests and combine all of the data into one JSON object in Power Automate to respond back to my PowerApp."
 pubDate: 2022-06-07T09:05:39+02:00
 tags: ["Automation", "Azure", "Power Automate", "Power Apps"]
+authorship: human
 legacyUrl: "/2022/06/07/power-automate-combine-multiple-json-objects-for-response/"
 ---
 Today I was looking at running multiple HTTP requests and combine all of the data into one JSON object in Power Automate to respond back to my PowerApp.

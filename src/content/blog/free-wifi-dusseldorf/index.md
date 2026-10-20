@@ -3,6 +3,7 @@ title: "Free WiFi Düsseldorf"
 description: "Did you know about the 11 current free WiFi spots in Düsseldorf?\\"
 pubDate: 2014-08-18T12:19:04+02:00
 tags: ["Düsseldorf"]
+authorship: human
 legacyUrl: "/2014/08/18/free-wifi-dusseldorf/"
 ---
 Did you know about the 11 current free WiFi spots in Düsseldorf?\

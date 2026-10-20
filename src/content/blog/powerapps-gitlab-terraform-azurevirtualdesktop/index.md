@@ -3,6 +3,7 @@ title: "Powerapps + Gitlab + Terraform + AzureVirtualDesktop"
 description: "Welcome to Part 1 (Frontend) of my multi-part series of automating your project intake request process. This article describes how to automatically roll-out…"
 pubDate: 2022-05-28T22:31:29+02:00
 tags: ["Automation", "Azure Virtual Desktop", "Azure", "PowerShell"]
+authorship: human
 legacyUrl: "/2022/05/28/powerapps-gitlab-terraform-azurevirtualdesktop/"
 ---
 ## Streamlining your AVD Project Intakes

@@ -3,6 +3,7 @@ title: "(FPV) Quadcopter X Setup"
 description: "So as of yesterday i finally finished something that i had in my mind for such a long time."
 pubDate: 2015-06-01T07:03:37+02:00
 tags: ["FPV & Drones"]
+authorship: human
 legacyUrl: "/2015/06/01/fpv-quadcopter-x-setup/"
 ---
 So as of yesterday i finally finished something that i had in my mind for such a long time.

@@ -30,6 +30,8 @@ title: ${JSON.stringify(title)}
 description: "One or two sentences for the post list, search results and link previews."
 pubDate: ${today}
 tags: []
+# human | ai-assisted | ai-written – who wrote the text (shown on the post)
+authorship: ai-written
 draft: true
 ---
 

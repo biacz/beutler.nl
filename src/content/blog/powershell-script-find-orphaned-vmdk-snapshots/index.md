@@ -3,6 +3,7 @@ title: "PowerCLI Script | Find orphaned VMDK & Snapshots"
 description: "If find this script really useful for finding orphaned VMDKs."
 pubDate: 2014-09-19T11:41:36+02:00
 tags: ["PowerShell", "vCenter", "VMware"]
+authorship: human
 legacyUrl: "/2014/09/19/powershell-script-find-orphaned-vmdk-snapshots/"
 ---
 If find this script really useful for finding orphaned VMDKs.

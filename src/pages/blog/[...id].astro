@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { OUTDATED_AFTER_YEARS } from '../../consts';
+import AuthorshipBadge from '../../components/AuthorshipBadge.astro';
+import { AUTHORSHIP, OUTDATED_AFTER_YEARS } from '../../consts';
 import { dateFormat, getPosts, postUrl, readingTime, tagSlug, type Post } from '../../lib/posts';
 
 export async function getStaticPaths() {
@@ -21,7 +22,8 @@ interface Props {
 }
 const { post, newer, older } = Astro.props;
 const { Content, headings } = await render(post);
-const { title, description, pubDate, updatedDate, tags, cover, coverAlt } = post.data;
+const { title, description, pubDate, updatedDate, tags, cover, coverAlt, authorship, legacyUrl } = post.data;
+const restored = authorship === 'human' && (Boolean(legacyUrl) || pubDate.getFullYear() < 2026);
 
 const toc = headings.filter((h) => h.depth === 2);
 const lastTouched = updatedDate ?? pubDate;
@@ -57,18 +59,27 @@ const outdated = ageYears >= OUTDATED_AFTER_YEARS;
           )
         }
         {' · '}
-        {readingTime(post.body)} min read
+        {readingTime(post.body)} min read{' '}
+        <AuthorshipBadge authorship={authorship} />
       </p>
     </header>
 
-    {
-      outdated && (
-        <aside class="note" role="note">
-          <strong>Heads up:</strong> this post is from {pubDate.getFullYear()}. Versions, links and best practices may
-          have changed since.
-        </aside>
-      )
-    }
+    <aside class:list={['note', { ai: authorship !== 'human' }]} role="note">
+      {
+        restored ? (
+          <p>
+            <strong>Written by Niko in {pubDate.getFullYear()}</strong> on the old WordPress blog. Restored by AI from
+            the Internet Archive in 2026 – the text is as written back then; only formatting, tags and dead links were
+            touched.
+            {outdated && ' Versions, links and best practices may have changed since.'}
+          </p>
+        ) : (
+          <p>
+            <strong>{AUTHORSHIP[authorship].long}</strong> <a href="/ai/">How this site is made →</a>
+          </p>
+        )
+      }
+    </aside>
 
     {cover && <Image class="cover" src={cover} alt={coverAlt ?? ''} widths={[720, 1440]} sizes="(min-width: 50rem) 720px, 100vw" />}
 
@@ -147,6 +158,9 @@ const outdated = ageYears >= OUTDATED_AFTER_YEARS;
   }
   .post .meta {
     margin-top: 0.75rem;
+  }
+  .note.ai {
+    border-left-color: var(--link);
   }
   .note {
     margin-bottom: 2rem;

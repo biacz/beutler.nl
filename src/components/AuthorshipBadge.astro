@@ -1,0 +1,54 @@
+---
+import { AUTHORSHIP } from '../consts';
+
+interface Props {
+  authorship: keyof typeof AUTHORSHIP;
+  small?: boolean;
+}
+const { authorship, small = false } = Astro.props;
+const isAI = authorship !== 'human';
+---
+
+<span class:list={['badge', { ai: isAI, small }]} title={AUTHORSHIP[authorship].long}>
+  {
+    isAI ? (
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2zm6.5 11l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6z"
+        />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path fill="currentColor" d="M3 17.2V21h3.8l11-11-3.8-3.8-11 11zm17.7-10.1a1 1 0 0 0 0-1.4l-2.4-2.4a1 1 0 0 0-1.4 0l-1.8 1.8 3.8 3.8 1.8-1.8z" />
+      </svg>
+    )
+  }
+  {AUTHORSHIP[authorship].short}
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .badge.ai {
+    border-color: color-mix(in oklab, var(--link) 45%, transparent);
+    background: color-mix(in oklab, var(--link) 10%, transparent);
+    color: var(--link);
+  }
+  .badge.small {
+    padding: 0 0.45rem;
+    font-size: 0.72rem;
+  }
+</style>

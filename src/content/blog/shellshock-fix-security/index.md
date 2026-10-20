@@ -3,6 +3,7 @@ title: "Shellshock – Fix your security"
 description: "Shellshock – A bug discovered in the widely used Bash command interpreter."
 pubDate: 2014-09-25T21:05:17+02:00
 tags: ["Linux", "Webhosting"]
+authorship: human
 legacyUrl: "/2014/09/25/shellshock-fix-security/"
 ---
 Shellshock – A bug discovered in the widely used Bash command interpreter.

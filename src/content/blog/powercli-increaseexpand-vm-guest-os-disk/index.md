@@ -3,6 +3,7 @@ title: "PowerCLI | Increase and Expand VM Guest OS Disk"
 description: ":: Increase and Expand VM Guest OS Disk ::"
 pubDate: 2014-10-22T10:35:50+02:00
 tags: ["PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
+authorship: human
 legacyUrl: "/2014/10/22/powercli-increaseexpand-vm-guest-os-disk/"
 ---
 :: Increase and Expand VM Guest OS Disk ::

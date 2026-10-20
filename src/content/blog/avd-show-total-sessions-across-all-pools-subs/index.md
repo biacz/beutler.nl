@@ -3,6 +3,7 @@ title: "AVD – Show total sessions across all pools / subs"
 description: "The AVD workbooks coming from Microsoft and other sources like the ITProCloud are nice but are based on individual hostpools. But what if you need to know…"
 pubDate: 2022-08-21T19:48:23+02:00
 tags: ["Azure Virtual Desktop", "Azure"]
+authorship: human
 legacyUrl: "/2022/08/21/avd-show-total-sessions-across-all-pools-subs/"
 ---
 The AVD workbooks coming from Microsoft and other sources like the ITProCloud are nice but are based on individual hostpools. But what if you need to know your total session user count over time? Below query will do exactly that. Run it in Azure Monitor against your log analytic workspaces that capture your hostpool diagnostic data.

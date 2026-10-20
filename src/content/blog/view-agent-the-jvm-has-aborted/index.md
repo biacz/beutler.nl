@@ -3,6 +3,7 @@ title: "View Agent | The JVM has aborted"
 description: "When HP QuickTest Professional software is installed on a View desktop, View Agent stops running and cannot communicate with View Connection Server. As a…"
 pubDate: 2014-09-03T11:45:31+02:00
 tags: ["VMware Horizon", "VMware"]
+authorship: human
 legacyUrl: "/2014/09/03/view-agent-the-jvm-has-aborted/"
 ---
 ## On View desktops that have HP QuickTest Professional installed, View Agent fails (2036437)

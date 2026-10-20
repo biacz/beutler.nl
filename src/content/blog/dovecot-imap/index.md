@@ -3,6 +3,7 @@ title: "Dovecot & imap"
 description: "Just wanted to install dovecot-imapd when i noticed my dovecot-core installation was somehow corrupt. Got error message like these from top to bottom:"
 pubDate: 2014-03-24T21:08:17+01:00
 tags: ["Mail Server", "Linux", "Webhosting"]
+authorship: human
 legacyUrl: "/2014/03/24/dovecot-imap/"
 ---
 Just wanted to install dovecot-imapd when i noticed my dovecot-core installation was somehow corrupt. Got error message like these from top to bottom:

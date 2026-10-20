@@ -3,6 +3,7 @@ title: ":: PowerCLI | Remove VMs"
 description: ":: PowerCLI | Remove VMs"
 pubDate: 2015-05-13T12:34:49+02:00
 tags: ["VMware Horizon", "PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
+authorship: human
 legacyUrl: "/2015/05/13/powercli-remove-vms/"
 ---
 :: PowerCLI | Remove VMs

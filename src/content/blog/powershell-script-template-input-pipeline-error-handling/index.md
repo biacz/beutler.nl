@@ -3,6 +3,7 @@ title: "Powershell Script | Template (input from pipeline / error handling)"
 description: "If you want to have a template that delivers some basic functionality just use this as and modify it to your needs."
 pubDate: 2014-09-22T10:17:00+02:00
 tags: ["PowerCLI", "PowerShell", "VMware"]
+authorship: human
 legacyUrl: "/2014/09/22/powershell-script-template-input-pipeline-error-handling/"
 ---
 If you want to have a template that delivers some basic functionality just use this as and modify it to your needs.

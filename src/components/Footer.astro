@@ -1,11 +1,16 @@
 ---
-import { SITE } from '../consts';
+import { AI, SITE } from '../consts';
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container inner">
-    <p>© 2014–{year} {SITE.author}</p>
+    <div>
+      <p>© 2014–{year} {SITE.author}</p>
+      <p class="ai-line">
+        Built and maintained by AI ({AI.name}) with Niko. <a href="/ai/">How this works</a>
+      </p>
+    </div>
     <ul>
       <li><a href="/rss.xml">RSS</a></li>
       <li><a href={SITE.github} rel="me">GitHub</a></li>
@@ -38,6 +43,12 @@ const year = new Date().getFullYear();
   }
   a {
     color: inherit;
+  }
+  .ai-line {
+    margin-top: 0.25rem;
+  }
+  .ai-line a {
+    color: var(--link);
   }
   a:hover {
     color: var(--accent);

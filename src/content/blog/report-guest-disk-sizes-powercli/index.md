@@ -3,6 +3,7 @@ title: "Report Guest Disk Sizes | PowerCLI"
 description: "I already explained in my previous post how to grow/extend Guest OS disks with PowerCLI."
 pubDate: 2014-07-31T08:29:06+02:00
 tags: ["PowerCLI", "PowerShell", "vCenter", "VMware", "vSphere"]
+authorship: human
 legacyUrl: "/2014/07/31/report-guest-disk-sizes-powercli/"
 ---
 I already explained in my [previous post](http://beutler.nl/?p=80) how to grow/extend Guest OS disks with PowerCLI.

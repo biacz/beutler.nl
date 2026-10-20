@@ -3,6 +3,7 @@ title: "Win7 / Vista – Registry access denied"
 description: "If you ever happen to be in the same position as me and your registry doesn’t let you change keys/values, check this article as it resolved my issue."
 pubDate: 2014-09-03T09:50:57+02:00
 tags: ["Windows"]
+authorship: human
 legacyUrl: "/2014/09/03/win7-vista-registry-access-denied/"
 ---
 If you ever happen to be in the same position as me and your registry doesn’t let you change keys/values, check this article as it resolved my issue.

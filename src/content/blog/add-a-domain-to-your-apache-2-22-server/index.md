@@ -3,6 +3,7 @@ title: "[Apache] Name based virtual host"
 description: "So after quite some time now i became annoyed of my FQDN and wanted something easier to read/share. I’ve bought a domain from godaddy.com (anyone knows…"
 pubDate: 2014-03-24T11:21:13+01:00
 tags: ["Apache", "Linux", "Webhosting"]
+authorship: human
 legacyUrl: "/2014/03/24/add-a-domain-to-your-apache-2-22-server/"
 ---
 So after quite some time now i became annoyed of my FQDN and wanted something easier to read/share. I’ve bought a domain from godaddy.com (anyone knows something better?) and wanted to add it to my existing webhost. After setting the A-record to my static server IP it took only about 10 minutes to get the change live. Now as my root server (debian v7.x) only got one IP and already some other sites on it i had to use Apache name based virtual hosts. I never really used it in the past. Other domains i am hosting are just pointed to my old FQDN and the folder where the sites are stored in. PRETTY LAME!

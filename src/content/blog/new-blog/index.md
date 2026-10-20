@@ -3,6 +3,7 @@ title: "New Blog"
 description: "Hi all,"
 pubDate: 2014-03-24T08:37:56+01:00
 tags: ["Personal"]
+authorship: human
 legacyUrl: "/2014/03/24/new-blog/"
 ---
 Hi all,

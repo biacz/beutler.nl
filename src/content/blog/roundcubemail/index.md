@@ -3,6 +3,7 @@ title: "Roundcubemail"
 description: "Just added roundcubemail to my dovecot imap server.\\"
 pubDate: 2014-03-24T23:32:18+01:00
 tags: ["Mail Server", "Linux", "Webhosting"]
+authorship: human
 legacyUrl: "/2014/03/24/roundcubemail/"
 ---
 Just added roundcubemail to my dovecot imap server.\

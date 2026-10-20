@@ -3,6 +3,7 @@ title: "Assign RBAC Custom Role on Management Group Level"
 description: "Recently i had to add custom roles to our management group and since this is not supported through the GUI i had to go through powershell."
 pubDate: 2021-05-04T08:17:10+02:00
 tags: ["Azure", "PowerShell"]
+authorship: human
 legacyUrl: "/2021/05/04/assign-rbac-custom-role-on-management-group-level/"
 ---
 Recently i had to add custom roles to our management group and since this is not supported through the GUI i had to go through powershell.

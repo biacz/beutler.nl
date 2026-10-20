@@ -3,6 +3,7 @@ title: "Win7/Vista – MSI Installer Safe Mode"
 description: "Referenced from: <http://www.symantec.com/connect/blogs/windows-installer-safe-mode>"
 pubDate: 2014-09-03T11:13:10+02:00
 tags: ["Windows"]
+authorship: human
 legacyUrl: "/2014/09/03/win7vista-msi-installer-safe-mode/"
 ---
 Referenced from: <http://www.symantec.com/connect/blogs/windows-installer-safe-mode>

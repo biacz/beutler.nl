@@ -3,6 +3,7 @@ title: ":: Debian 7 – Server crashed and rebuilt"
 description: ":: Debian 7 – Server crashed and rebuilt"
 pubDate: 2015-05-12T12:30:15+00:00
 tags: ["Linux", "nginx", "Webhosting"]
+authorship: human
 ---
 :: Debian 7 – Server crashed and rebuilt
 
