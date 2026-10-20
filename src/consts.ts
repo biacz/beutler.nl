@@ -21,11 +21,11 @@ export const NAV = [
  * The CI build refuses to deploy while any value still contains "TODO".
  */
 export const IMPRINT = {
-  name: 'Nikolas Beutler',
-  street: 'TODO Straße und Hausnummer',
-  city: 'TODO PLZ Ort',
+  name: 'Nikolas-Benedikt Beutler',
+  street: 'Curtiusstraße 8',
+  city: '47053 Duisburg',
   country: 'Deutschland',
-  email: 'TODO E-Mail-Adresse',
+  email: 'nbeutler@gmail.com',
 };
 
 /** Posts older than this many years get a "may be outdated" note. */
