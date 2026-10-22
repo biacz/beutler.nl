@@ -35,5 +35,16 @@ export const IMPRINT = {
   email: 'nbeutler@gmail.com',
 };
 
+/**
+ * Comments are GitHub Discussions in this repo: one discussion per post, titled `<prefix><slug>`,
+ * shared by both languages. CI creates missing ones (scripts/sync-discussions.mjs) and every build
+ * bakes the comments into the page. An "announcement" category: only the owner can open
+ * discussions, everyone with a GitHub account can comment.
+ */
+export const COMMENTS = {
+  category: 'Announcements',
+  prefix: 'blog/',
+};
+
 /** Posts older than this many years get a "may be outdated" note. */
 export const OUTDATED_AFTER_YEARS = 3;

@@ -1,0 +1,25 @@
+# Weekly dependency updates as pull requests. CI runs on each; nothing merges without Niko's OK.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      astro:
+        patterns: ['astro', '@astrojs/*']
+      build-tools:
+        patterns: ['pagefind', 'satori', 'sharp', '@fontsource/*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ['*']

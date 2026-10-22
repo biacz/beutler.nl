@@ -1,0 +1,85 @@
+---
+// Full-text search with Pagefind (Component UI): the index is built after `astro build` (see
+// package.json) and served from /pagefind/ on our own domain. Pagefind picks the index matching
+// <html lang>, so English and German search their own posts.
+import Base from '../layouts/Base.astro';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang).search;
+const dev = import.meta.env.DEV;
+---
+
+<Base lang={lang} title={ui.title} description={ui.description} noindex>
+  <div class="narrow">
+    <header class="page-head">
+      <h1>{ui.title}</h1>
+      <p>{ui.intro}</p>
+    </header>
+    {dev && <p class="meta">{ui.devNote}</p>}
+    <div class="search">
+      <pagefind-input autofocus></pagefind-input>
+      <div class="row">
+        <pagefind-summary></pagefind-summary>
+        <pagefind-filter-dropdown filter="tag" label={lang === 'de' ? 'Thema' : 'Topic'}></pagefind-filter-dropdown>
+      </div>
+      <pagefind-results></pagefind-results>
+    </div>
+  </div>
+</Base>
+
+<link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
+<script is:inline type="module" src="/pagefind/pagefind-component-ui.js"></script>
+<script>
+  // /search/?q=… pre-fills the search (also used by the WebSite search action in the JSON-LD).
+  const q = new URLSearchParams(location.search).get('q');
+  const run = () => {
+    const pf = (window as any).PagefindComponents;
+    if (!q || !pf) return;
+    pf.getInstanceManager().getInstance('default').triggerSearch(q);
+  };
+  if ((window as any).PagefindComponents) run();
+  else addEventListener('load', run, { once: true });
+</script>
+
+<style>
+  .search {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    /* Pagefind resets inherited styles on its elements; these variables are the theming API. */
+    --pf-text: var(--text);
+    --pf-text-secondary: var(--muted);
+    --pf-text-muted: var(--muted);
+    --pf-background: var(--surface);
+    --pf-border: var(--border);
+    --pf-border-focus: var(--link);
+    --pf-hover: var(--surface-2);
+    --pf-skeleton: var(--surface-2);
+    --pf-skeleton-shine: var(--surface);
+    --pf-mark: var(--accent);
+    --pf-outline-focus: var(--focus);
+    --pf-font: var(--font-sans);
+    --pf-input-height: 46px;
+    --pf-input-font-size: 17px;
+    --pf-summary-font-size: 14px;
+    --pf-result-title-font-size: 17px;
+    --pf-result-excerpt-font-size: 15px;
+    --pf-border-radius: 8px;
+    --pf-results-gap: 10px;
+  }
+  .search > * {
+    display: block;
+    min-width: 0;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+</style>

@@ -106,6 +106,20 @@ export const UI = {
       copied: 'Copied ✓',
       failed: 'Failed',
     },
+    search: {
+      label: 'Search',
+      title: 'Search',
+      description: 'Search all posts on beutler.nl.',
+      intro: 'Searches all posts in English. The search runs entirely in your browser – nothing is sent anywhere.',
+      devNote: 'The search index is only built by “npm run build” – use “npm run preview” to try it.',
+    },
+    comments: {
+      title: 'Comments',
+      none: 'No comments yet.',
+      write: 'Comment on GitHub →',
+      note: 'Comments are GitHub Discussions: you need a GitHub account, and what you write there is public on GitHub. New comments show up here within a few minutes.',
+    },
+    changelog: 'Changelog',
     notFound: {
       title: 'Not found',
       heading: 'This page doesn’t exist (anymore).',
@@ -175,6 +189,20 @@ export const UI = {
       copied: 'Kopiert ✓',
       failed: 'Fehler',
     },
+    search: {
+      label: 'Suche',
+      title: 'Suche',
+      description: 'Alle Beiträge auf beutler.nl durchsuchen.',
+      intro: 'Durchsucht alle deutschen Beiträge. Die Suche läuft komplett in deinem Browser – es wird nichts verschickt.',
+      devNote: 'Der Suchindex entsteht erst bei „npm run build“ – zum Ausprobieren „npm run preview“ nutzen.',
+    },
+    comments: {
+      title: 'Kommentare',
+      none: 'Noch keine Kommentare.',
+      write: 'Auf GitHub kommentieren →',
+      note: 'Kommentare sind GitHub Discussions: Du brauchst ein GitHub-Konto, und was du dort schreibst, ist auf GitHub öffentlich. Neue Kommentare erscheinen hier nach ein paar Minuten.',
+    },
+    changelog: 'Änderungen',
     notFound: {
       title: 'Nicht gefunden',
       heading: 'Diese Seite gibt es nicht (mehr).',

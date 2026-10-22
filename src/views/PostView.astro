@@ -3,9 +3,11 @@ import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import AuthorshipBadge from '../components/AuthorshipBadge.astro';
+import Comments from '../components/Comments.astro';
 import { OUTDATED_AFTER_YEARS } from '../consts';
 import { formatDate, localize, t, tagLabel, type Lang } from '../i18n';
-import { postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
+import { postSlug, postUrl, readingTime, tagSlug, type Post } from '../lib/posts';
+import { postLd } from '../lib/seo';
 
 interface Props {
   lang: Lang;
@@ -32,17 +34,27 @@ const alternates = {
   [lang]: postUrl(post),
   [otherLang]: other ? postUrl(other) : localize('/blog/', otherLang),
 } as Record<Lang, string>;
+const ogImage = `/og/${post.id}.png`;
 ---
 
-<Base lang={lang} title={title} description={description} type="article" publishedTime={pubDate} alternates={alternates}>
-  <article class="narrow post">
+<Base
+  lang={lang}
+  title={title}
+  description={description}
+  type="article"
+  publishedTime={pubDate}
+  alternates={alternates}
+  image={ogImage}
+  jsonLd={postLd(post, Astro.site!, ogImage)}
+>
+  <article class="narrow post" data-pagefind-body>
     <header class="page-head">
       {
         tags.length > 0 && (
-          <ul class="tags">
+          <ul class="tags" data-pagefind-ignore>
             {tags.map((tag) => (
               <li>
-                <a class="tag" href={localize(`/tags/${tagSlug(tag)}/`, lang)}>
+                <a class="tag" href={localize(`/tags/${tagSlug(tag)}/`, lang)} data-pagefind-filter="tag">
                   {tagLabel(tag, lang)}
                 </a>
               </li>
@@ -51,8 +63,8 @@ const alternates = {
         )
       }
       <h1>{title}</h1>
-      <p class="meta">
-        <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+      <p class="meta" data-pagefind-ignore>
+        <time datetime={pubDate.toISOString()} data-pagefind-meta="date">{formatDate(pubDate, lang)}</time>
         {
           updatedDate && (
             <>
@@ -75,7 +87,7 @@ const alternates = {
       </p>
     </header>
 
-    <aside class:list={['note', { ai: authorship !== 'human' }]} role="note">
+    <aside class:list={['note', { ai: authorship !== 'human' }]} role="note" data-pagefind-ignore>
       {
         restored ? (
           <p>
@@ -95,7 +107,7 @@ const alternates = {
 
     {
       toc.length >= 3 && (
-        <details class="toc">
+        <details class="toc" data-pagefind-ignore>
           <summary>{ui.post.contents}</summary>
           <ol>
             {toc.map((h) => (
@@ -112,7 +124,8 @@ const alternates = {
       <Content />
     </div>
 
-    <nav class="pager" aria-label={ui.post.more}>
+    <Comments slug={postSlug(post)} lang={lang} />
+    <nav class="pager" aria-label={ui.post.more} data-pagefind-ignore>
       {
         older ? (
           <a class="prev" href={postUrl(older)}>

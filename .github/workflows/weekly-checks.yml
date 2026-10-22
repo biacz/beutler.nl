@@ -1,0 +1,61 @@
+name: Weekly checks
+
+# Against the real, live site:
+# - external links in all posts (old posts link to things that disappear) → issue "Broken links"
+# - DAST: ZAP baseline scan of https://www.beutler.nl → issue "ZAP report (live site)"
+on:
+  schedule:
+    - cron: '7 6 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check external links in posts
+        id: lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --no-progress 'src/content/blog/*/index.md'
+          fail: false
+          jobSummary: true
+      - name: Open, update or close the "Broken links" issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+        run: |
+          num=$(gh issue list --label link-check --state open --json number --jq '.[0].number // empty')
+          if [ "$EXIT_CODE" != "0" ]; then
+            gh label create link-check --color FBCA04 --description "Weekly link check" --force
+            if [ -n "$num" ]; then gh issue edit "$num" --body-file lychee/out.md
+            else gh issue create --title "Broken links" --label link-check --body-file lychee/out.md; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "All links work again."
+          fi
+
+  dast-live:
+    name: DAST (ZAP baseline, live site)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
+        with:
+          target: https://www.beutler.nl/
+          rules_file_name: .zap/rules.tsv
+          cmd_options: -I
+          issue_title: ZAP report (live site)
+          artifact_name: zap-live

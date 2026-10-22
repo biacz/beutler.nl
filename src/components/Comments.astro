@@ -1,0 +1,133 @@
+---
+// Comments from the post's GitHub Discussion, rendered at build time (no script, no GitHub requests
+// from the reader's browser, no avatars). Both languages share one thread.
+import { COMMENTS, SITE } from '../consts';
+import { formatDate, t, type Lang } from '../i18n';
+import { getThreads, type Comment } from '../lib/github';
+
+interface Props {
+  slug: string;
+  lang: Lang;
+}
+const { slug, lang } = Astro.props;
+const ui = t(lang).comments;
+const thread = (await getThreads()).get(slug);
+// No thread yet (new post, local build): link to the repo's discussions, filtered to this post.
+const href =
+  thread?.url ??
+  `${SITE.repo}/discussions?discussions_q=${encodeURIComponent(`in:title "${COMMENTS.prefix}${slug}"`)}`;
+---
+
+<section class="comments" aria-labelledby="comments" data-pagefind-ignore>
+  <h2 id="comments">
+    {ui.title}
+    {thread && thread.count > 0 && <span class="count">{thread.count}</span>}
+  </h2>
+  {
+    thread && thread.comments.length > 0 ? (
+      <ol class="list">
+        {thread.comments.map((c: Comment) => (
+          <li>
+            <article class="comment">
+              <header class="meta">
+                {c.authorUrl ? <a href={c.authorUrl} rel="nofollow ugc">{c.author}</a> : <span>{c.author}</span>}
+                {' · '}
+                <time datetime={c.createdAt.toISOString()}>{formatDate(c.createdAt, lang)}</time>
+              </header>
+              <div class="prose body" set:html={c.html} />
+              {c.replies.length > 0 && (
+                <ol class="replies">
+                  {c.replies.map((r) => (
+                    <li>
+                      <article class="comment">
+                        <header class="meta">
+                          {r.authorUrl ? <a href={r.authorUrl} rel="nofollow ugc">{r.author}</a> : <span>{r.author}</span>}
+                          {' · '}
+                          <time datetime={r.createdAt.toISOString()}>{formatDate(r.createdAt, lang)}</time>
+                        </header>
+                        <div class="prose body" set:html={r.html} />
+                      </article>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </article>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="meta">{ui.none}</p>
+    )
+  }
+  <p class="cta"><a class="button" href={href}>{ui.write}</a></p>
+  <p class="meta note">{ui.note}</p>
+</section>
+
+<style>
+  .comments {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+  }
+  .count {
+    padding: 0 0.55rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .list,
+  .replies {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .replies {
+    margin-left: clamp(0.75rem, 3vw, 1.5rem);
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+  }
+  .comment {
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .replies .comment {
+    background: transparent;
+  }
+  .comment header a {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .body {
+    margin-top: 0.35rem;
+    font-size: 0.95em;
+  }
+  .cta {
+    margin-top: 1.25rem;
+  }
+  .button {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--link);
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .button:hover {
+    background: color-mix(in oklab, var(--link) 10%, transparent);
+  }
+  .note {
+    margin-top: 0.6rem;
+  }
+</style>

@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
 import { localize, t, tagLabel, type Lang } from '../i18n';
 import { getPosts, groupByTag } from '../lib/posts';
+import { personLd } from '../lib/seo';
 import banner from '../assets/banner.jpg';
 
 interface Props {
@@ -13,9 +14,27 @@ const { lang } = Astro.props;
 const ui = t(lang);
 const posts = await getPosts(lang);
 const topTags = groupByTag(posts).slice(0, 10);
+const home = new URL(localize('/', lang), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'beutler.nl',
+  url: home,
+  inLanguage: lang,
+  description: ui.description,
+  author: personLd(Astro.site!),
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${new URL(localize('/search/', lang), Astro.site)}?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
 ---
 
-<Base lang={lang}>
+<Base lang={lang} jsonLd={jsonLd}>
   <div class="banner">
     <Image
       src={banner}
@@ -142,7 +161,7 @@ const topTags = groupByTag(posts).slice(0, 10);
   }
   .count {
     margin-left: 0.15rem;
-    opacity: 0.7;
+    font-weight: 600;
   }
   .more {
     margin-top: 1rem;
