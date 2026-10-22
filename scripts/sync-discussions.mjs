@@ -38,8 +38,8 @@ for (const slug of await readdir(dir)) {
   }
   const fm = text.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '';
   if (/^draft:\s*true\s*$/m.test(fm)) continue;
-  const title = fm.match(/^title:\s*["']?(.*?)["']?\s*$/m)?.[1] ?? slug;
-  posts.push({ slug, title });
+  // Only the slug (folder name) goes to GitHub – file contents never leave the repo.
+  posts.push(slug);
 }
 
 const repo = await graphql(
@@ -82,11 +82,11 @@ do {
 } while (after);
 
 let created = 0;
-for (const { slug, title } of posts) {
+for (const slug of posts) {
   const key = PREFIX + slug;
   if (existing.has(key)) continue;
   const body = [
-    `Comments on **[${title}](${SITE}/blog/${slug}/)** ([Deutsch](${SITE}/de/blog/${slug}/)).`,
+    `Comments on **${SITE}/blog/${slug}/** ([Deutsch](${SITE}/de/blog/${slug}/)).`,
     '',
     'Replies here show up under the post on beutler.nl within a few minutes.',
     '<!-- Created automatically by scripts/sync-discussions.mjs – the title links this thread to the post. -->',
