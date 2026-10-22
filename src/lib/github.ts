@@ -35,10 +35,16 @@ export interface Thread {
  * image proxy – a third-party request) and mark links as user content.
  */
 function clean(html: string): string {
-  return html
+  let out = html
     .replace(/<a\b[^>]*>\s*(<img\b[^>]*>)\s*<\/a>/gi, '$1')
-    .replace(/<img\b[^>]*>/gi, '<em>[image – see on GitHub]</em>')
-    .replace(/<(video|picture|source|iframe)\b[^>]*>(?:[\s\S]*?<\/\1>)?/gi, '')
+    .replace(/<img\b[^>]*>/gi, '<em>[image – see on GitHub]</em>');
+  // Remove embedded media; repeat until nothing changes, so leftovers can't join into a new tag.
+  let prev;
+  do {
+    prev = out;
+    out = out.replace(/<(video|picture|source|iframe)\b[^>]*>(?:[\s\S]*?<\/\1>)?/gi, '');
+  } while (out !== prev);
+  return out
     .replace(/<a\b([^>]*?)\s+rel="[^"]*"/gi, '<a$1')
     .replace(/<a\b/gi, '<a rel="nofollow ugc noopener"')
     // Safety net: whatever embedding tag is left (nested or malformed) becomes plain text.
