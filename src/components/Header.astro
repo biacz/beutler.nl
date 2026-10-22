@@ -231,8 +231,9 @@ const isActive = (href: string) => path === href || path.startsWith(href);
       display: none;
     }
   }
-  /* Very small phones: Topics leaves the header (still linked from the home page and every post). */
-  @media (max-width: 25rem) {
+  /* Phones: Topics leaves the header (still linked from the home page and every post), so the
+     buttons keep enough room to tap (Lighthouse checks at 412px). */
+  @media (max-width: 27.5rem) {
     .nav-topics {
       display: none;
     }

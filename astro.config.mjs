@@ -37,7 +37,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       // Both themes are emitted as CSS variables; global.css picks one via light-dark().
-      themes: { light: 'github-light', dark: 'github-dark' },
+      // github-light-default: Primer colours with enough contrast (WCAG AA) on white.
+      themes: { light: 'github-light-default', dark: 'github-dark' },
       defaultColor: false,
     },
   },

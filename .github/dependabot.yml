@@ -7,7 +7,7 @@ updates:
       interval: weekly
       day: monday
     cooldown:
-      default-days: 3
+      default-days: 7
     groups:
       astro:
         patterns: ['astro', '@astrojs/*']
@@ -19,7 +19,7 @@ updates:
       interval: weekly
       day: monday
     cooldown:
-      default-days: 3
+      default-days: 7
     groups:
       actions:
         patterns: ['*']

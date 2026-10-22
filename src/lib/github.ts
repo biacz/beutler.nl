@@ -40,7 +40,9 @@ function clean(html: string): string {
     .replace(/<img\b[^>]*>/gi, '<em>[image – see on GitHub]</em>')
     .replace(/<(video|picture|source|iframe)\b[^>]*>(?:[\s\S]*?<\/\1>)?/gi, '')
     .replace(/<a\b([^>]*?)\s+rel="[^"]*"/gi, '<a$1')
-    .replace(/<a\b/gi, '<a rel="nofollow ugc noopener"');
+    .replace(/<a\b/gi, '<a rel="nofollow ugc noopener"')
+    // Safety net: whatever embedding tag is left (nested or malformed) becomes plain text.
+    .replace(/<(?=\/?(?:img|video|audio|picture|source|track|iframe|frame|object|embed|script|style|link|meta|base|form)\b)/gi, '&lt;');
 }
 
 type RawComment = {
