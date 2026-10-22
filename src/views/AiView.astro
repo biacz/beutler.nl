@@ -5,6 +5,7 @@ import AuthorshipBadge from '../components/AuthorshipBadge.astro';
 import { AI, SITE } from '../consts';
 import { formatDate, formatMonth, localize, t, type Authorship, type Lang } from '../i18n';
 import { getPosts, getProjects } from '../lib/posts';
+import { getRepoStats } from '../lib/github';
 
 interface Props {
   lang: Lang;
@@ -13,7 +14,19 @@ const { lang } = Astro.props;
 const ui = t(lang);
 
 const projects = await getProjects(lang);
-const rendered = await Promise.all(projects.map(async (p) => ({ p, Content: (await render(p)).Content })));
+const rendered = await Promise.all(
+  projects.map(async (p) => ({
+    p,
+    Content: (await render(p)).Content,
+    // Fetched at build time; the daily rebuild keeps it fresh.
+    stats: p.data.repo ? await getRepoStats(p.data.repo) : undefined,
+  })),
+);
+const relative = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' });
+const ago = (d: Date) => {
+  const days = Math.round((d.valueOf() - Date.now()) / 86_400_000);
+  return Math.abs(days) < 30 ? relative.format(days, 'day') : formatDate(d, lang);
+};
 
 const posts = await getPosts(lang);
 const postSlugs = new Set(posts.map((p) => p.id.replace(/\/de$/, '')));
@@ -66,6 +79,10 @@ const T = {
     rulesIn: 'live in the repository',
     publicPre: 'Everything is public:',
     publicLink: 'source code and full history on GitHub',
+    changelogPre: 'Changelog:',
+    changelogLink: 'every change, marked AI or Niko',
+    stars: (n: number) => `${n} ${n === 1 ? 'star' : 'stars'}`,
+    updated: 'last change',
     projects: 'AI projects',
     projectsIntro: 'Things I build with AI. More to come.',
     sinceLabel: 'Since',
@@ -107,6 +124,10 @@ const T = {
     rulesIn: 'stehen im Repository',
     publicPre: 'Alles ist öffentlich:',
     publicLink: 'Quellcode und komplette Historie auf GitHub',
+    changelogPre: 'Änderungen:',
+    changelogLink: 'jede Änderung, gekennzeichnet als KI oder Niko',
+    stars: (n: number) => `${n} ${n === 1 ? 'Stern' : 'Sterne'}`,
+    updated: 'letzte Änderung',
     projects: 'KI-Projekte',
     projectsIntro: 'Dinge, die ich mit KI baue. Es kommen weitere dazu.',
     sinceLabel: 'Seit',
@@ -168,6 +189,9 @@ const T = {
         <li>
           <strong>{T.publicPre}</strong> <a href={SITE.repo}>{T.publicLink}</a>.
         </li>
+        <li>
+          <strong>{T.changelogPre}</strong> <a href={localize('/changelog/', lang)}>{T.changelogLink}</a>.
+        </li>
       </ul>
     </div>
 
@@ -176,7 +200,7 @@ const T = {
       <p class="meta">{T.projectsIntro}</p>
       <ul>
         {
-          rendered.map(({ p, Content }) => (
+          rendered.map(({ p, Content, stats }) => (
             <li class="project">
               <div class="project-head">
                 <h3>{p.data.link ? <a href={p.data.link}>{p.data.title}</a> : p.data.title}</h3>
@@ -192,6 +216,13 @@ const T = {
                   <>
                     {' · '}
                     <a href={p.data.repo}>{T.source}</a>
+                  </>
+                )}
+                {stats && (
+                  <>
+                    {stats.stars > 0 && <>{' · '}<span title="GitHub">★ {T.stars(stats.stars)}</span></>}
+                    {' · '}
+                    {T.updated} <time datetime={stats.pushedAt.toISOString()}>{ago(stats.pushedAt)}</time>
                   </>
                 )}
                 {p.data.post && postSlugs.has(p.data.post) && (

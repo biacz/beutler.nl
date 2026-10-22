@@ -7,6 +7,32 @@ export default defineConfig({
   trailingSlash: 'always',
   // Astro 7 default 'jsx' drops line breaks between text and inline tags ("theLink"); keep spaces.
   compressHTML: true,
+  // Content Security Policy as <meta> tag (GitHub Pages can't send headers). Astro hashes its own
+  // inline scripts and styles. Only our own domain is allowed – the site promises no third parties.
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self'",
+        "connect-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        'upgrade-insecure-requests',
+      ],
+      // 'self': Pagefind's UI script in /pagefind/. 'wasm-unsafe-eval': Pagefind's search runs as WebAssembly.
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
+      styleDirective: {
+        resources: [
+          "'self'",
+          // Shiki colours code via style="--shiki-light:…" attributes. This only allows style
+          // attributes; <style> elements still need Astro's hashes.
+          { resource: "'unsafe-inline'", kind: 'attribute' },
+        ],
+      },
+    },
+  },
   integrations: [sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en-GB', de: 'de-DE' } } })],
   markdown: {
     shikiConfig: {

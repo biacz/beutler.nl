@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/",
+        "http://localhost/blog/",
+        "http://localhost/blog/kindle-home-assistant-wall-calendar/",
+        "http://localhost/blog/powershell-script-template-input-pipeline-error-handling/",
+        "http://localhost/de/",
+        "http://localhost/ai/"
+      ],
+      "numberOfRuns": 1
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:performance": ["warn", { "minScore": 0.85 }]
+      }
+    }
+  }
+}

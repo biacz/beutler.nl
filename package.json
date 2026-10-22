@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "new": "node scripts/new-post.mjs"
@@ -16,5 +16,12 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.4.1"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/raleway": "^5.3.0",
+    "pagefind": "^1.5.2",
+    "satori": "^0.63.2",
+    "sharp": "^0.35.5"
   }
 }

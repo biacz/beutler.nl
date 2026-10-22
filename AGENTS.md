@@ -56,11 +56,56 @@ family names.
   and `src/pages/de/`). The header switch links to the same page in the other language.
 - Impressum and Datenschutz exist only in German (German law), at `/impressum/` and `/datenschutz/`.
 
+## Built-in features (since 2026-10-22)
+
+- **Search** (`/search/`, `/de/search/`): Pagefind indexes the built HTML after `astro build`
+  (`npm run build` runs both). Only post bodies are indexed (`data-pagefind-body` in `PostView`);
+  tags are a filter. Works only after a build: use `npm run preview`, not `npm run dev`.
+- **Share images**: `src/pages/og/[...slug].png.ts` renders a 1200×630 PNG per post and language
+  (satori + sharp, fonts from `@fontsource` WOFF files). Nothing to do per post.
+- **Comments**: one GitHub Discussion per post in category `COMMENTS.category` (`src/consts.ts`),
+  titled `blog/<slug>`, shared by both languages. The deploy workflow creates missing threads
+  (`scripts/sync-discussions.mjs`) and rebuilds on every new comment. Comments are fetched at build
+  time (`src/lib/github.ts`) and rendered as static HTML: no avatars, no images, no GitHub requests
+  from readers. Moderate on GitHub: hidden ("minimized") comments are not shown.
+  Never rename a post discussion's title – it links the thread to the post.
+- **Changelog** (`/changelog/`): generated from `git log` at build time. Commits with a
+  `Co-Authored-By: Claude` trailer are shown as AI – so **always keep that trailer** on AI commits.
+- **Project stats** on `/ai/`: stars and last change of each project's `repo`, fetched at build time.
+- **JSON-LD** (`src/lib/seo.ts`): BlogPosting per post, WebSite on the home page. AI involvement is
+  stated there too (`contributor` / `translator`).
+- **Content Security Policy** (`security.csp` in `astro.config.mjs`), as a meta tag: only this
+  domain; Astro hashes its inline scripts and styles. Consequences: no inline event handlers
+  (`onclick=`), no external scripts/styles/fonts/images, no `<ClientRouter />`. Check the browser
+  console after `npm run preview` (CSP is not active in `npm run dev`).
+
+Build-time GitHub data needs `GITHUB_TOKEN` (CI sets it). Locally:
+`GITHUB_TOKEN=$(gh auth token) npm run build` – without it, comments and stats are left out.
+
+## CI/CD and security (GitHub Actions, all free for public repos)
+
+- `deploy.yml`: push to `main`, daily at 04:17 UTC, and on every discussion comment → build + Pages.
+- `ci.yml` (pull requests): build, internal link check (lychee), Lighthouse (accessibility/SEO
+  must stay ≥ 95), ZAP baseline DAST against the built site, dependency review.
+- `codeql.yml` (SAST), `zizmor.yml` (workflow security), `scorecard.yml` (OpenSSF Scorecard):
+  results under Security → Code scanning.
+- `weekly-checks.yml` (Mondays): external links in posts → issue "Broken links"; ZAP scan of the
+  live site → issue "ZAP report (live site)".
+- `.github/dependabot.yml`: weekly update PRs for npm and actions.
+- `.zap/rules.tsv`: ZAP findings GitHub Pages can't fix (headers) are ignored; cookies and
+  cross-domain scripts **fail** the check – they would break the privacy promise.
+- All actions are pinned to a commit SHA with the version as comment; Dependabot updates both.
+  Workflows use `permissions: {}` at the top and grant per job.
+
+Work on a branch and open a pull request for anything beyond a post: CI only runs on PRs.
+
 ## Rules
 
 - Keep the AI disclosure visible: header nav "AI", homepage note, footer line, per-post badge.
 - No trackers, analytics, external fonts, embeds or third-party scripts: the privacy page
-  promises that. YouTube etc. as plain links only.
+  promises that (and the CSP and the ZAP scan enforce it). YouTube etc. as plain links only.
+- A new feature that processes visitor data (even indirectly, like comments) needs a section in
+  `src/pages/datenschutz.astro`.
 - The CI build fails on purpose while `IMPRINT` in `src/consts.ts` contains `TODO`.
 - Keep dependencies minimal; update Astro when an update exists (`npx @astrojs/upgrade`).
 
