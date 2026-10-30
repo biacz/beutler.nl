@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" width="760" height="470" role="img" aria-labelledby="t d">
+  <title id="t">How a mail moves through the app</title>
+  <desc id="d">Google's Gmail API feeds a Sync module that polls the mailbox history and queues new mails in SQLite. A Worker takes one mail at a time, asks the Jev model through OpenCode Zen and applies fixed rules to pick a column. Rules write Gmail labels. Replies and Planner call Claude Haiku on request or for suggestions. Planner reads Google Tasks and Calendar live. A Hono API and server-sent events connect all of this to the React app in the browser.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5b5e66"/>
+    </marker>
+  </defs>
+  <style>
+    .bg { fill: #ffffff; stroke: #e5e5e5; }
+    .box { fill: #fafaf9; stroke: #d9d9d6; }
+    .frame { fill: #f6f8fb; stroke: #1f4e8c; stroke-dasharray: 5 4; }
+    .key { fill: #ffffff; stroke: #1f4e8c; }
+    .ext { fill: #fbf1ef; stroke: #a62c21; }
+    .h { font: 700 15px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .sub { font: 400 12.5px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .b { font: 600 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .s { font: 400 11.5px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .lane { font: 600 11px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1f4e8c; }
+    .l { stroke: #5b5e66; stroke-width: 1.4; fill: none; }
+    .m { text-anchor: middle; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1c1d21; stroke: #2f3137; }
+      .box { fill: #23252a; stroke: #3a3c43; }
+      .frame { fill: #17181c; stroke: #8db4ec; }
+      .key { fill: #1c1d21; stroke: #8db4ec; }
+      .ext { fill: #2e1d1b; stroke: #e8705f; }
+      .h, .b { fill: #e7e7e4; }
+      .sub, .s { fill: #a3a6ad; }
+      .lane { fill: #8db4ec; }
+      .l { stroke: #c9cacd; }
+      marker path { fill: #c9cacd; }
+    }
+  </style>
+  <rect class="bg" x=".5" y=".5" width="759" height="469" rx="8"/>
+  <text class="h" x="20" y="28">How a mail moves through the app</text>
+  <text class="sub" x="20" y="47">One Node process, one SQLite file. The models answer; plain code decides.</text>
+
+  <rect class="frame" x="180" y="62" width="380" height="288" rx="8"/>
+  <text class="lane" x="194" y="80">SERVER: NODE 22, HONO, SQLITE, ONE CONTAINER</text>
+
+  <rect class="box" x="196" y="92" width="352" height="54" rx="6"/>
+  <text class="b m" x="372" y="115">Hono API + server-sent events</text>
+  <text class="s m" x="372" y="133">Host, Origin and CSRF checks on every change</text>
+
+  <rect class="box" x="196" y="186" width="106" height="54" rx="6"/>
+  <text class="b m" x="249" y="209">Sync</text>
+  <text class="s m" x="249" y="227">polls history</text>
+  <rect class="box" x="320" y="186" width="106" height="54" rx="6"/>
+  <text class="b m" x="373" y="209">SQLite</text>
+  <text class="s m" x="373" y="227">queue + state</text>
+  <rect class="key" x="444" y="186" width="104" height="54" rx="6"/>
+  <text class="b m" x="496" y="209">Worker</text>
+  <text class="s m" x="496" y="227">one mail at a time</text>
+
+  <rect class="box" x="196" y="280" width="106" height="54" rx="6"/>
+  <text class="b m" x="249" y="303">Planner</text>
+  <text class="s m" x="249" y="321">suggestions</text>
+  <rect class="box" x="320" y="280" width="106" height="54" rx="6"/>
+  <text class="b m" x="373" y="303">Replies</text>
+  <text class="s m" x="373" y="321">drafts, Send it</text>
+  <rect class="key" x="444" y="280" width="104" height="54" rx="6"/>
+  <text class="b m" x="496" y="303">Rules</text>
+  <text class="s m" x="496" y="321">pick the column</text>
+
+  <rect class="box" x="20" y="186" width="130" height="54" rx="6"/>
+  <text class="b m" x="85" y="209">Gmail API</text>
+  <text class="s m" x="85" y="227">the real mailbox</text>
+  <rect class="box" x="20" y="280" width="130" height="54" rx="6"/>
+  <text class="b m" x="85" y="303">Tasks + Calendar</text>
+  <text class="s m" x="85" y="321">read live, no cache</text>
+
+  <rect class="box" x="600" y="92" width="140" height="54" rx="6"/>
+  <text class="b m" x="670" y="115">Browser</text>
+  <text class="s m" x="670" y="133">React + Vite</text>
+
+  <rect class="ext" x="180" y="386" width="380" height="64" rx="6"/>
+  <text class="b" x="196" y="408">OpenCode Zen (hosted)</text>
+  <text class="s" x="196" y="426">Jev: numbers and choices only, about 0.5 s per mail</text>
+  <text class="s" x="196" y="441">Claude Haiku 5.5: drafts and suggestions, returns text</text>
+
+  <path class="l" marker-end="url(#a)" d="M150 213 H196"/>
+  <path class="l" marker-end="url(#a)" d="M302 213 H320"/>
+  <path class="l" marker-end="url(#a)" d="M426 213 H444"/>
+  <path class="l" marker-end="url(#a)" d="M496 240 V280"/>
+  <path class="l" marker-start="url(#a)" marker-end="url(#a)" d="M373 186 V146"/>
+  <path class="l" marker-start="url(#a)" marker-end="url(#a)" d="M548 119 H600"/>
+  <path class="l" marker-start="url(#a)" marker-end="url(#a)" d="M150 307 H196"/>
+  <path class="l" marker-end="url(#a)" d="M470 280 V262 H85 V240"/>
+  <path class="l" d="M373 280 V262"/>
+  <text class="s" x="196" y="256">labels, drafts, sends</text>
+  <path class="l" marker-end="url(#a)" d="M249 334 V386"/>
+  <path class="l" marker-end="url(#a)" d="M373 334 V386"/>
+  <path class="l" marker-end="url(#a)" d="M548 213 H576 V418 H560"/>
+</svg>
