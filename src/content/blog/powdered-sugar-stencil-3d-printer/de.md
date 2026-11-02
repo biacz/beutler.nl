@@ -109,12 +109,13 @@ die Steckdose des Druckers schaltete sich ab, sobald die Düse abgekühlt war.
 
 ![Die fertige Schablone auf dem Glasbett, von der Seitenkamera aus gesehen](./finished-print.jpg)
 
-## Auf dem Kuchen
+## Erster Einsatz
 
-Kurz danach ging es auf den Kuchen. Schablone knapp über die Oberfläche halten, Puderzucker drüberstäuben
-und an der Lasche gerade nach oben abheben.
+Als Erstes bekam nicht der Kuchen selbst die Schablone, sondern ein Herz-Keks, gebacken aus den Teigresten vom
+Kuchenboden. Schablone knapp über die Oberfläche halten, Puderzucker drüberstäuben und an der Lasche gerade nach
+oben abheben.
 
-![Der herzförmige Schokokuchen in einer rosa Schüssel mit M + N = m aus Puderzucker, daneben die bestäubte schwarze Schablone](./cake.jpg)
+![Ein herzförmiger Schokokeks in einer rosa Schüssel mit M + N = m aus Puderzucker, daneben die bestäubte schwarze Schablone](./cake.jpg)
 
 ## Was ich mitnehme
 

@@ -108,12 +108,13 @@ the printer's plug switched itself off once the nozzle had cooled down.
 
 ![The finished stencil on the printer's glass bed, seen from the side camera](./finished-print.jpg)
 
-## On the cake
+## First use
 
-A little later it went onto the cake. Hold the stencil just above the surface, dust the sugar over it, and
-lift it straight up by the tab.
+The first thing to get the stencil wasn't the cake itself but a heart-shaped cookie, baked from the leftover dough
+of the cake base. Hold the stencil just above the surface, dust the sugar over it, and lift it straight up by the
+tab.
 
-![The heart-shaped chocolate cake in a pink bowl with M + N = m in powdered sugar, the sugar-dusted black stencil next to it](./cake.jpg)
+![A heart-shaped chocolate cookie in a pink bowl with M + N = m in powdered sugar, the sugar-dusted black stencil next to it](./cake.jpg)
 
 ## What I took away
 
