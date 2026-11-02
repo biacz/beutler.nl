@@ -109,6 +109,13 @@ die Steckdose des Druckers schaltete sich ab, sobald die Düse abgekühlt war.
 
 ![Die fertige Schablone auf dem Glasbett, von der Seitenkamera aus gesehen](./finished-print.jpg)
 
+## Auf dem Kuchen
+
+Kurz danach ging es auf den Kuchen. Schablone knapp über die Oberfläche halten, Puderzucker drüberstäuben
+und an der Lasche gerade nach oben abheben.
+
+![Der herzförmige Schokokuchen in einer rosa Schüssel mit M + N = m aus Puderzucker, daneben die bestäubte schwarze Schablone](./cake.jpg)
+
 ## Was ich mitnehme
 
 - Für ein schnelles Einzelstück reichte es, die Form in drei Zeilen ASCII-Art zu beschreiben.

@@ -108,6 +108,13 @@ the printer's plug switched itself off once the nozzle had cooled down.
 
 ![The finished stencil on the printer's glass bed, seen from the side camera](./finished-print.jpg)
 
+## On the cake
+
+A little later it went onto the cake. Hold the stencil just above the surface, dust the sugar over it, and
+lift it straight up by the tab.
+
+![The heart-shaped chocolate cake in a pink bowl with M + N = m in powdered sugar, the sugar-dusted black stencil next to it](./cake.jpg)
+
 ## What I took away
 
 - For a quick one-off, describing the shape in three lines of ASCII art was enough.
