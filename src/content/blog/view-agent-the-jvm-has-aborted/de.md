@@ -21,7 +21,7 @@ T09:50:47.588-05:00 WARN (0870-0874) <Main Thread> []\
 T09:50:47.588-05:00 FATAL (0870-0874) <Main Thread> [] The JVM has aborted.\
 T09:50:47.744-05:00 INFO (03E0-0838) <JavaBridge> [wsnm_jmsbridge] wsnm_jms died, restarting in a minute
 
-**Hinweis**: Mehr dazu, wo die Logs des View Agent liegen, steht in [Location of VMware View log files (1027744)](http://kb.vmware.com/selfservice/search.do?cmd=displayKC&docType=kc&docTypeID=DT_KB_1_1&externalId=1027744).
+**Hinweis**: Mehr dazu, wo die Logs des View Agent liegen, steht in [Location of VMware View log files (1027744)](https://web.archive.org/web/20240217130425/https://kb.vmware.com/s/article/1027744).
 
 Das Problem tritt auf, weil HP QuickTest Professional auf der virtuellen Desktop-Maschine folgende Umgebungsvariablen setzt:
 

@@ -8,7 +8,7 @@ legacyUrl: "/2014/09/03/win7-vista-registry-access-denied/"
 ---
 If you ever happen to be in the same position as me and your registry doesn’t let you change keys/values, check this article as it resolved my issue.
 
-[http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/](http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/ "Fix Registry Win7/Vista")
+[http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/](https://web.archive.org/web/20130425164545/http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/ "Fix Registry Win7/Vista")
 
 —-
 

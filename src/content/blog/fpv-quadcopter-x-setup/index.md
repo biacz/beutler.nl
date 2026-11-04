@@ -18,17 +18,17 @@ You can basically call it a budget build but it’s not trading quality against 
 
 ### Quadcopter Parts
 
-1x [AfroFlight Naze32 Acro AbuseMark FunFly Controller – Soldered version (Horizontal Pin)](https://www.hobbyking.com/hobbyking/store/__68813__AfroFlight_Naze32_Acro_AbuseMark_FunFly_Controller_Soldered_version_Horizontal_Pin_.html)\
-2x [Turnigy nano-tech 1500mah 3S 25~50C Lipo Pack](https://www.hobbyking.com/hobbyking/store/__26451__Turnigy_nano_tech_1500mah_3S_25_50C_Lipo_Pack.html)\
-6x [Afro ESC 20Amp Multi-rotor Motor Speed Controller (SimonK Firmware)](https://www.hobbyking.com/hobbyking/store/__43709__Afro_ESC_20Amp_Multi_rotor_Motor_Speed_Controller_SimonK_Firmware_.html)\
-6x [DYS BE1806-13 Brushless Motor for Multirotor (2300KV) 24g](https://www.hobbyking.com/hobbyking/store/__61433__DYS_BE1806_13_Brushless_Motor_for_Multirotor_2300KV_24g.html)\
-1x [Turnigy 9X 9Ch Transmitter w/ Module & 8ch Receiver (Mode 2) (v2 Firmware)](https://www.hobbyking.com/hobbyking/store/__8992__Turnigy_9X_9Ch_Transmitter_w_Module_8ch_Receiver_Mode_2_v2_Firmware_.html)\
-10x [Gemfan 5030 Multirotor ABS Propellers One Pair CW CCW (Black)](https://www.hobbyking.com/hobbyking/store/__58251__Gemfan_5030_Multirotor_ABS_Propellers_One_Pair_CW_CCW_Black_.html)\
-1x [Tarot 250mm Mini Through The Machine Quadcopter With PCB](https://www.hobbyking.com/hobbyking/store/__77207__Tarot_250mm_Mini_Through_The_Machine_Quadcopter_With_PCB.html)
+1x [AfroFlight Naze32 Acro AbuseMark FunFly Controller – Soldered version (Horizontal Pin)](https://web.archive.org/web/20151101040900/http://www.hobbyking.com/hobbyking/store/__68813__AfroFlight_Naze32_Acro_AbuseMark_FunFly_Controller_Soldered_version_Horizontal_Pin_.html)\
+2x [Turnigy nano-tech 1500mah 3S 25~50C Lipo Pack](https://web.archive.org/web/20151230221310/http://www.hobbyking.com/hobbyking/store/__26451__Turnigy_nano_tech_1500mah_3S_25_50C_Lipo_Pack.html)\
+6x [Afro ESC 20Amp Multi-rotor Motor Speed Controller (SimonK Firmware)](https://web.archive.org/web/20151230124216/http://www.hobbyking.com/hobbyking/store/__43709__Afro_ESC_20Amp_Multi_rotor_Motor_Speed_Controller_SimonK_Firmware_.html)\
+6x [DYS BE1806-13 Brushless Motor for Multirotor (2300KV) 24g](https://web.archive.org/web/20160104000323/http://www.hobbyking.com/hobbyking/store/__61433__DYS_BE1806_13_Brushless_Motor_for_Multirotor_2300KV_24g.html)\
+1x [Turnigy 9X 9Ch Transmitter w/ Module & 8ch Receiver (Mode 2) (v2 Firmware)](https://web.archive.org/web/20160122104712/http://www.hobbyking.com/hobbyking/store/__8992__Turnigy_9X_9Ch_Transmitter_w_Module_8ch_Receiver_Mode_2_v2_Firmware_.html)\
+10x [Gemfan 5030 Multirotor ABS Propellers One Pair CW CCW (Black)](https://web.archive.org/web/20151030055829/http://www.hobbyking.com/hobbyking/store/__58251__Gemfan_5030_Multirotor_ABS_Propellers_One_Pair_CW_CCW_Black_.html)\
+1x [Tarot 250mm Mini Through The Machine Quadcopter With PCB](https://web.archive.org/web/20151115082220/http://www.hobbyking.com/hobbyking/store/__77207__Tarot_250mm_Mini_Through_The_Machine_Quadcopter_With_PCB.html)
 
 ### Accessoires
 
-1x [3W Red LED Alloy Light Strip 120mm x 10mm (2S-3S Compatible)](https://www.hobbyking.com/hobbyking/store/__22386__3W_Red_LED_Alloy_Light_Strip_120mm_x_10mm_2S_3S_Compatible_.html)\
+1x [3W Red LED Alloy Light Strip 120mm x 10mm (2S-3S Compatible)](https://web.archive.org/web/20151108173832/http://www.hobbyking.com/hobbyking/store/__22386__3W_Red_LED_Alloy_Light_Strip_120mm_x_10mm_2S_3S_Compatible_.html)\
 1x (Cutting Mat) [WEDO Schneideunterlage Cutting Mat, selbstschließende Oberfläche, 45 x 30 x 0,3 cm CM 45, grün](https://www.amazon.de/gp/product/B001JK32QE/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1)\
 1x (Solder Iron) [OHE Profi Lötstation Starterset – Lötkolben + Station + Lötzinn + Lotsaugpumpe + Spitze](https://www.amazon.de/gp/product/B00EXMTOWG/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1)\
 1x (Lipo Beeper) [1-8s Spannung Lipo Akku Alarm Checker Schutz Anzeiger](https://www.amazon.de/gp/product/B009LW48LK/ref=oh_aui_detailpage_o06_s00?ie=UTF8&psc=1)\
