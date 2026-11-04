@@ -33,7 +33,15 @@ export default defineConfig({
       },
     },
   },
-  integrations: [sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en-GB', de: 'de-DE' } } })],
+  integrations: [
+    sitemap({
+      i18n: { defaultLocale: 'en', locales: { en: 'en-GB', de: 'de-DE' } },
+      // Only real, indexable pages. Everything else is a WordPress redirect ([...legacy].astro,
+      // public/*.html) or marked noindex (search, Impressum, Datenschutz, 404) – listing those makes
+      // Search Console report errors. A new top-level section must be added here.
+      filter: (page) => /^\/(de\/)?((blog|tags|about|ai|changelog)\/.*)?$/.test(new URL(page).pathname),
+    }),
+  ],
   markdown: {
     shikiConfig: {
       // Both themes are emitted as CSS variables; global.css picks one via light-dark().

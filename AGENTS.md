@@ -50,6 +50,9 @@ family names.
 - `src/styles/global.css` – design tokens (colours from the old site: graphite `#3D3F45`,
   red `#A62C21`, blue `#1F4E8C`), light/dark via `light-dark()` and `[data-theme]`.
 - `src/pages/[...legacy].astro` – redirects for old WordPress URLs (posts, categories, tags).
+- Sitemap: `filter` in `astro.config.mjs` is an allowlist of sections (`blog`, `tags`, `about`,
+  `ai`, `changelog`, home; EN and DE). Redirects and noindex pages stay out. **A new top-level
+  section must be added there**, or it won't be in the sitemap.
 - `public/*.html` – redirects for URLs of the interim Netlify page.
 - Bilingual: English at `/`, German under `/de/`. Interface texts for both languages are in
   `src/i18n.ts`; page layouts are in `src/views/` (one view, two thin route files in `src/pages/`
