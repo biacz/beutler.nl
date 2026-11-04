@@ -9,7 +9,7 @@ translation: ai
 
 Falls du mal in derselben Lage bist wie ich und dich die Registry keine Schlüssel oder Werte ändern lässt: Dieser Artikel hat mein Problem gelöst.
 
-[http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/](http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/ "Fix Registry Win7/Vista")
+[http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/](https://web.archive.org/web/20130425164545/http://www.smartestcomputing.us.com/topic/51422-vistaseven-the-registry-editor-could-not-set-security-in-the-key-currently-selected-or-some-of-its-subkeys-error-fix/ "Fix Registry Win7/Vista")
 
 —-
 
