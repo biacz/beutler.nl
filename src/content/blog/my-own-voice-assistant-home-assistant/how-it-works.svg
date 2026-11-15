@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" width="760" height="350" role="img" aria-labelledby="t d">
+  <title id="t">How a spoken question gets answered</title>
+  <desc id="d">Three satellites – Voice PE, a Jabra speakerphone and an Atom Echo – listen for the wake word and send speech to Home Assistant. Home Assistant turns it into text and checks it against local sentences. A match is answered by Home Assistant itself in about 0.01 seconds. Everything else goes to the AI voice agent with a few tools. The answer is turned into speech and played on the box that heard the question.</desc>
+  <style>
+    .bg { fill: #ffffff; stroke: #e5e5e5; }
+    .box { fill: #fafaf9; stroke: #d9d9d6; }
+    .kbox { fill: #ffffff; stroke: #1f4e8c; }
+    .chip { fill: #e8eef7; stroke: #1f4e8c; }
+    .ok { fill: #eef6ee; stroke: #2e7d32; }
+    .h { font: 700 15px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .b { font: 600 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .s { font: 400 12px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .m { font: 600 12px 'JetBrains Mono', Consolas, monospace; fill: #1f4e8c; }
+    .g { font: 600 12px 'JetBrains Mono', Consolas, monospace; fill: #2e7d32; }
+    .lbl { font: 600 12px Inter, 'Segoe UI', system-ui, sans-serif; fill: #3d3f45; }
+    .arrow { stroke: #3d3f45; stroke-width: 2; fill: none; }
+    .head { fill: #3d3f45; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1c1d21; stroke: #2f3137; }
+      .box { fill: #23252a; stroke: #3a3c43; }
+      .kbox { fill: #1c1d21; stroke: #8db4ec; }
+      .chip { fill: #22324a; stroke: #8db4ec; }
+      .ok { fill: #1d2b1e; stroke: #7cc47f; }
+      .h, .b { fill: #e7e7e4; }
+      .s { fill: #a3a6ad; }
+      .m { fill: #8db4ec; }
+      .g { fill: #7cc47f; }
+      .lbl { fill: #c9cacd; }
+      .arrow { stroke: #c9cacd; }
+      .head { fill: #c9cacd; }
+    }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0.5" y="0.5" width="759" height="349" rx="12"/>
+  <text class="h" x="24" y="36">How a spoken question gets answered</text>
+
+  <!-- Satellites -->
+  <rect class="box" x="24" y="66" width="150" height="48" rx="10"/>
+  <text class="b" x="99" y="86" text-anchor="middle">Voice PE</text>
+  <text class="s" x="99" y="104" text-anchor="middle">official box</text>
+  <rect class="box" x="24" y="126" width="150" height="48" rx="10"/>
+  <text class="b" x="99" y="146" text-anchor="middle">Jabra Speak 510</text>
+  <text class="s" x="99" y="164" text-anchor="middle">speakerphone on the PC</text>
+  <rect class="box" x="24" y="186" width="150" height="48" rx="10"/>
+  <text class="b" x="99" y="206" text-anchor="middle">Atom Echo</text>
+  <text class="s" x="99" y="224" text-anchor="middle">ESP32, about $13</text>
+  <text class="s" x="99" y="254" text-anchor="middle">wake word on the device</text>
+
+  <path class="arrow" d="M174 90 L212 120" marker-end="url(#a)"/>
+  <path class="arrow" d="M174 150 L212 150" marker-end="url(#a)"/>
+  <path class="arrow" d="M174 210 L212 180" marker-end="url(#a)"/>
+
+  <!-- Home Assistant -->
+  <rect class="box" x="214" y="66" width="232" height="168" rx="10"/>
+  <text class="b" x="330" y="90" text-anchor="middle">Home Assistant pipeline</text>
+  <rect class="chip" x="234" y="104" width="192" height="32" rx="8"/>
+  <text class="m" x="330" y="125" text-anchor="middle">speech-to-text</text>
+  <path class="arrow" d="M330 136 L330 160" marker-end="url(#a)"/>
+  <rect class="kbox" x="234" y="162" width="192" height="50" rx="8"/>
+  <text class="b" x="330" y="183" text-anchor="middle">matches a local</text>
+  <text class="b" x="330" y="201" text-anchor="middle">sentence exactly?</text>
+
+  <!-- yes -->
+  <path class="arrow" d="M426 176 C470 176 470 99 498 99" marker-end="url(#a)"/>
+  <text class="lbl" x="436" y="148">yes</text>
+  <rect class="ok" x="500" y="66" width="236" height="66" rx="10"/>
+  <text class="b" x="618" y="90" text-anchor="middle">Home Assistant answers</text>
+  <text class="s" x="618" y="108" text-anchor="middle">lights, shopping list, status</text>
+  <text class="g" x="618" y="124" text-anchor="middle">≈ 0.01 s</text>
+
+  <!-- no -->
+  <path class="arrow" d="M426 198 C470 198 470 192 498 192" marker-end="url(#a)"/>
+  <text class="lbl" x="452" y="216">no</text>
+  <rect class="box" x="500" y="150" width="236" height="84" rx="10"/>
+  <text class="b" x="618" y="172" text-anchor="middle">AI voice agent</text>
+  <text class="s" x="618" y="190" text-anchor="middle">short instructions, few tools</text>
+  <text class="m" x="618" y="210" text-anchor="middle">HA · calendar · list</text>
+  <text class="m" x="618" y="226" text-anchor="middle">weather · memory</text>
+
+  <!-- TTS -->
+  <path class="arrow" d="M618 234 L618 272" marker-end="url(#a)"/>
+  <path class="arrow" d="M736 99 C752 99 752 260 736 274" marker-end="url(#a)"/>
+  <rect class="chip" x="214" y="274" width="522" height="36" rx="8"/>
+  <text class="m" x="475" y="297" text-anchor="middle">text-to-speech → played on the box that heard it</text>
+  <path class="arrow" d="M214 292 L99 292 L99 268" marker-end="url(#a)"/>
+</svg>

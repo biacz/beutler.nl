@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="760" height="320" role="img" aria-labelledby="t d">
+  <title id="t">Response time, end of speaking to answer</title>
+  <desc id="d">All questions through the main assistant: up to 51 seconds. Dedicated voice agent with generic Home Assistant tools: 23 to 38 seconds. Voice agent with Home Assistant's own MCP server: 1.9 to 5.3 seconds. Local sentence answered by Home Assistant: 0.01 to 0.08 seconds.</desc>
+  <style>
+    .bg { fill: #ffffff; stroke: #e5e5e5; }
+    .h { font: 700 15px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .b { font: 600 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .s { font: 400 12px Inter, 'Segoe UI', system-ui, sans-serif; fill: #5b5e66; }
+    .v { font: 700 13px Inter, 'Segoe UI', system-ui, sans-serif; fill: #1d1e21; }
+    .grid { stroke: #ececea; stroke-width: 1; }
+    .axis { stroke: #c9cacd; stroke-width: 1; }
+    .red { fill: #a62c21; }
+    .gray { fill: #3d3f45; }
+    .range { fill: #9a9ca2; }
+    .blue { fill: #1f4e8c; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1c1d21; stroke: #2f3137; }
+      .h, .b, .v { fill: #e7e7e4; }
+      .s { fill: #a3a6ad; }
+      .grid { stroke: #2a2c31; }
+      .axis { stroke: #4a4c53; }
+      .red { fill: #e8705f; }
+      .gray { fill: #c9cacd; }
+      .range { fill: #6b6e75; }
+      .blue { fill: #8db4ec; }
+    }
+  </style>
+
+  <rect class="bg" x="0.5" y="0.5" width="759" height="319" rx="12"/>
+  <text class="h" x="24" y="36">Response time, end of speaking to answer</text>
+
+  <!-- grid: x = 270 + seconds * 8 -->
+  <line class="grid" x1="350" y1="60" x2="350" y2="270"/>
+  <line class="grid" x1="430" y1="60" x2="430" y2="270"/>
+  <line class="grid" x1="510" y1="60" x2="510" y2="270"/>
+  <line class="grid" x1="590" y1="60" x2="590" y2="270"/>
+  <line class="grid" x1="670" y1="60" x2="670" y2="270"/>
+  <line class="axis" x1="270" y1="60" x2="270" y2="270"/>
+  <text class="s" x="270" y="290" text-anchor="middle">0 s</text>
+  <text class="s" x="350" y="290" text-anchor="middle">10</text>
+  <text class="s" x="430" y="290" text-anchor="middle">20</text>
+  <text class="s" x="510" y="290" text-anchor="middle">30</text>
+  <text class="s" x="590" y="290" text-anchor="middle">40</text>
+  <text class="s" x="670" y="290" text-anchor="middle">50</text>
+
+  <!-- 1: main assistant, up to 51 s -->
+  <text class="b" x="24" y="84">Everything via main assistant</text>
+  <text class="s" x="24" y="101">~85,000 tokens per call</text>
+  <rect class="red" x="270" y="72" width="408" height="26" rx="3"/>
+  <text class="v" x="686" y="90">up to 51 s</text>
+
+  <!-- 2: voice agent, generic HA MCP, 23-38 s -->
+  <text class="b" x="24" y="134">Voice agent, generic HA tools</text>
+  <text class="s" x="24" y="151">10–12 model rounds</text>
+  <rect class="range" x="270" y="122" width="304" height="26" rx="3"/>
+  <rect class="gray" x="270" y="122" width="184" height="26" rx="3"/>
+  <text class="v" x="582" y="140">23–38 s</text>
+
+  <!-- 3: HA's own MCP, 1.9-5.3 s -->
+  <text class="b" x="24" y="184">Voice agent, HA's own MCP</text>
+  <text class="s" x="24" y="201">2 model rounds</text>
+  <rect class="range" x="270" y="172" width="42" height="26" rx="3"/>
+  <rect class="gray" x="270" y="172" width="15" height="26" rx="3"/>
+  <text class="v" x="320" y="190">1.9–5.3 s</text>
+
+  <!-- 4: local sentence, 0.01-0.08 s -->
+  <text class="b" x="24" y="234">Local sentence in HA</text>
+  <text class="s" x="24" y="251">no AI involved</text>
+  <rect class="blue" x="270" y="222" width="3" height="26" rx="1"/>
+  <text class="v" x="281" y="240">0.01–0.08 s</text>
+</svg>
